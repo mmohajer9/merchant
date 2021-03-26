@@ -1,9 +1,11 @@
-function App() {
+import React from "react";
+
+const App = () => {
   return (
     <div className="App">
-      This is App Component
+      learn react
     </div>
   );
-}
+};
 
 export default App;
