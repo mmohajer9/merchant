@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './containers/App';
+import "fontsource-roboto"
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
