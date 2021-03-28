@@ -1,13 +1,19 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
+
 import theme from "../UI/Theme";
-import Header from "../Header/Header";
+import Homepage from "../../containers/Homepage/Homepage";
+import routes from "../../common/routes";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      Hello !
+      <BrowserRouter>
+        <Switch>
+          <Route exact path={routes.homepage} component={Homepage} />
+        </Switch>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
