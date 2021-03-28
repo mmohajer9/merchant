@@ -2,16 +2,16 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const merchantWhite = "#FFFFFF";
 const merchantRed = "#F24E45";
-const merchantLightGray = "#F0F0F1";
-const merchantGray = "#6F6F6F"
+const merchantLightGrey = "#F0F0F1";
+const merchantGrey = "#6F6F6F";
 
-export default createMuiTheme({
+const lightTheme = createMuiTheme({
   palette: {
     common: {
       white: merchantWhite,
       red: merchantRed,
-      lightGray: merchantLightGray,
-      gray: merchantGray,
+      lightGrey: merchantLightGrey,
+      grey: merchantGrey,
     },
     primary: {
       main: merchantWhite,
@@ -24,3 +24,13 @@ export default createMuiTheme({
 
   // }
 });
+
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
+
+export { lightTheme, darkTheme };
+
+console.dir(lightTheme.breakpoints.values)

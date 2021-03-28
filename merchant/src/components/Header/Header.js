@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   InputBase,
   useScrollTrigger,
@@ -15,9 +15,11 @@ import { makeStyles } from "@material-ui/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
+
+import Popover from "./Popover";
 import routes from "../../common/routes";
-
-
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -40,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius + 3,
-    borderColor: fade(theme.palette.common.gray, 0.4),
+    borderColor: fade(theme.palette.common.grey, 0.4),
     borderStyle: "solid",
-    backgroundColor: fade(theme.palette.common.lightGray, 1),
+    backgroundColor: fade(theme.palette.common.lightGrey, 1),
     "&:hover": {
-      borderColor: fade(theme.palette.common.gray, 1),
+      borderColor: fade(theme.palette.common.grey, 1),
     },
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(4),
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     padding: ".7em",
     borderRadius: theme.shape.borderRadius + 3,
-    borderColor: fade(theme.palette.common.gray, 0.4),
+    borderColor: fade(theme.palette.common.grey, 0.4),
     borderStyle: "solid",
     "&:hover": {
       color: fade(theme.palette.common.black, 1),
@@ -103,8 +105,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
+  const location = useLocation();
+  const [value, setValue] = React.useState(
+    location.pathname === routes.cart
+      ? 2
+      : location.pathname === routes.aboutus
+      ? 4
+      : location.pathname === routes.contactus
+      ? 6
+      : null
+  );
   const handleChange = (event, value) => {
     setValue(value);
   };
@@ -133,7 +143,7 @@ const Header = () => {
               onChange={handleChange}
               value={value}
               className={classes.tabContainer}
-              indicatorColor="none"
+              indicatorColor="secondary"
             >
               <Tab
                 disableRipple
@@ -154,8 +164,29 @@ const Header = () => {
                 className={classes.tab}
                 icon={<ShoppingCartOutlinedIcon />}
               />
+              <Divider orientation="vertical" flexItem />
+              <Tab
+                component={Link}
+                to={routes.aboutus}
+                disableRipple
+                className={classes.tab}
+                icon={<HelpOutlineOutlinedIcon />}
+              />
+              <Divider orientation="vertical" flexItem />
+              <Tab
+                component={Link}
+                to={routes.contactus}
+                disableRipple
+                className={classes.tab}
+                icon={<PhoneOutlinedIcon />}
+              />
             </Tabs>
           </Toolbar>
+          <Divider orientation="horizontal" />
+          <Toolbar>
+            <Popover />
+          </Toolbar>
+          <Divider orientation="horizontal" />
         </AppBar>
       </ElevationScroll>
       <div className={classes.toolbarMargin}></div>

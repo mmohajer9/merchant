@@ -1,9 +1,11 @@
 const routes = {
   homepage: "/",
-  dashboard: "/dashboard",
+  panel: "/panel",
   cart: "/cart",
   login: "/login",
   signup: "/signup",
+  aboutus: "/aboutus",
+  contactus: "/contactus"
 };
 
 export default routes;
