@@ -37,6 +37,10 @@ const StyledMenu = withStyles({})((props) => (
 ));
 
 const useStyles = makeStyles((theme) => ({
+  inlineTab: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   tab: {
     marginRight: "1rem",
     marginLeft: "1rem",
@@ -45,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     "& svg": {
       fontSize: "2rem",
+      marginRight : "0.5rem"
     },
   },
   tabContainer: {
@@ -60,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: fade(theme.palette.common.grey, 1),
     },
     marginRight: "auto",
-    marginLeft: theme.spacing(4),
+    marginLeft: theme.spacing(2),
     width: "80%",
   },
   searchIcon: {
@@ -140,7 +145,7 @@ export default function CustomizedMenus() {
 
   const megaMenu = (
     <>
-      <Toolbar>
+      <Toolbar disableGutters={true}>
         <Tabs onChange={handleChange} value={value} indicatorColor="secondary">
           <Tab
             disableRipple

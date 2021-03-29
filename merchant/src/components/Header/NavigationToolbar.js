@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(4),
-    width: "35%",
+    width: "40%",
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
