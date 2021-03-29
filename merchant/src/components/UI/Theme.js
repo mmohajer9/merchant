@@ -32,5 +32,3 @@ const darkTheme = createMuiTheme({
 });
 
 export { lightTheme, darkTheme };
-
-console.dir(lightTheme.breakpoints.values)

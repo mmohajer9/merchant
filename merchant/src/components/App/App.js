@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
 
 // eslint-disable-next-line no-unused-vars
 import { lightTheme, darkTheme } from "../UI/Theme";
@@ -15,15 +16,17 @@ import Signup from "../../containers/Signup/Signup";
 const App = () => {
   return (
     <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
       <BrowserRouter>
         <Switch>
           <Route exact path={routes.login} component={Login} />
           <Route exact path={routes.signup} component={Signup} />
-          {/*  */}
-          <Header />
-          <Route exact path={routes.homepage} component={Homepage} />
-          <Route exact path={routes.cart} component={Cart} />
-          <Route exact path={routes.panel} component={Panel} />
+          <Route>
+            <Header />
+            <Route exact path={routes.homepage} component={Homepage} />
+            <Route exact path={routes.cart} component={Cart} />
+            <Route exact path={routes.panel} component={Panel} />
+          </Route>
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

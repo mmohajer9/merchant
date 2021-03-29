@@ -1,5 +1,5 @@
 const Homepage = (props) => {
-  return <>Homepage</>;
+  return <div></div>;
 };
 
 export default Homepage;

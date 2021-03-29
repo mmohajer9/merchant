@@ -1,5 +1,5 @@
 const Cart = (props) => {
-  return <>Cart</>;
+  return <></>;
 };
 
 export default Cart;
