@@ -10,7 +10,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -22,7 +22,7 @@ function TabPanel(props) {
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -62,7 +62,7 @@ export default function VerticalTabs(props) {
   };
 
   return (
-    <div onMouseLeave={props.onClose} className={classes.root}>
+    <Box onMouseLeave={props.onClose} className={classes.root}>
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -100,6 +100,6 @@ export default function VerticalTabs(props) {
       <TabPanel value={value} index={6}>
         Item Seven
       </TabPanel>
-    </div>
+    </Box>
   );
 }

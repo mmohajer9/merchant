@@ -17,7 +17,7 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import { HomeOutlined } from "@material-ui/icons";
 
-import routes from "../../common/routes";
+import routes from "../../../common/routes";
 
 const useStyles = makeStyles((theme) => ({
   tabContainer: {

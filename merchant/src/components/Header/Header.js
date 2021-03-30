@@ -7,9 +7,9 @@ import {
   useTheme,
 } from "@material-ui/core";
 
-import OptionsToolbar from "./OptionsToolbar";
-import NavigationToolbar from "./NavigationToolbar";
-import DrawerToolbar from "./DrawerToolbar";
+import NavigationToolbar from "./fragments/NavigationToolbar";
+import OptionsToolbar from "./fragments/OptionsToolbar";
+import DrawerToolbar from "./fragments/DrawerToolbar";
 
 function ElevationScroll(props) {
   const { children } = props;

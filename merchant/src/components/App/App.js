@@ -12,6 +12,7 @@ import Cart from "../../containers/Cart/Cart";
 import Panel from "../../containers/Panel/Panel";
 import Login from "../../containers/Login/Login";
 import Signup from "../../containers/Signup/Signup";
+import Footer from "../Footer/Footer";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route exact path={routes.homepage} component={Homepage} />
             <Route exact path={routes.cart} component={Cart} />
             <Route exact path={routes.panel} component={Panel} />
+            <Footer />
           </Route>
         </Switch>
       </BrowserRouter>

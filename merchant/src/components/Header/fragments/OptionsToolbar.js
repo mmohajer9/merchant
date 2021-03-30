@@ -18,7 +18,7 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import routes from "../../common/routes";
+import routes from "../../../common/routes";
 
 const StyledMenu = withStyles({})((props) => (
   <Menu
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     "& svg": {
       fontSize: "2rem",
-      marginRight : "0.5rem"
+      marginRight: "0.5rem",
     },
   },
   tabContainer: {
@@ -154,7 +154,7 @@ export default function CustomizedMenus() {
               wrapper: classes.inlineTab,
             }}
             icon={<MenuOutlinedIcon />}
-            onMouseEnter={handleOpen}
+            onMouseOver={handleOpen}
             label="Categories"
           />
         </Tabs>

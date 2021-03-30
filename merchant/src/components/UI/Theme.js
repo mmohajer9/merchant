@@ -25,6 +25,8 @@ const lightTheme = createMuiTheme({
   // }
 });
 
+console.log(lightTheme)
+
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",

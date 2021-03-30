@@ -19,6 +19,10 @@ import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 const useStyles = makeStyles((theme) => ({
   root: {
     justifyContent: "space-between",
+    [theme.breakpoints.up("sm")] : {
+      paddingLeft : theme.mixins.gutters().paddingLeft,
+      paddingRight : theme.mixins.gutters().paddingRight
+    }
   },
 }));
 
