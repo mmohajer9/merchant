@@ -28,6 +28,13 @@ let lightTheme = createMuiTheme({
         },
       },
     },
+    MuiFormLabel : {
+      root : {
+        "&$focused" :{
+          color : "inherit"
+        }
+      }
+    }
   },
   typography: {
     button: {
