@@ -4,7 +4,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
 
 // eslint-disable-next-line no-unused-vars
-import { lightTheme, darkTheme } from "../UI/Theme";
+import { lightTheme, darkTheme, defaultTheme } from "../UI/Theme";
 import Header from "../Header/Header";
 import Homepage from "../../containers/Homepage/Homepage";
 import routes from "../../common/routes";
@@ -20,8 +20,13 @@ const App = () => {
       <CssBaseline />
       <BrowserRouter>
         <Switch>
-          <Route exact path={routes.login} component={Login} />
-          <Route exact path={routes.signup} component={Signup} />
+          <Route exact path={routes.login}>
+            <Login />
+          </Route>
+          <Route exact path={routes.signup}>
+            <Signup />
+          </Route>
+          {/* SEP */}
           <Route>
             <Header />
             <Route exact path={routes.homepage} component={Homepage} />

@@ -5,7 +5,8 @@ const routes = {
   login: "/login",
   signup: "/signup",
   aboutus: "/aboutus",
-  contactus: "/contactus"
+  contactus: "/contactus",
+  forgotPassword: "/forgotpassword"
 };
 
 export default routes;

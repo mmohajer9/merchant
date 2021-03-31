@@ -1,11 +1,11 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
 const merchantWhite = "#FFFFFF";
 const merchantRed = "#F24E45";
-const merchantLightGrey = "#F0F0F1";
 const merchantGrey = "#6F6F6F";
+const merchantLightGrey = "#F6F6F6";
 
-const lightTheme = createMuiTheme({
+let lightTheme = createMuiTheme({
   palette: {
     common: {
       white: merchantWhite,
@@ -20,17 +20,43 @@ const lightTheme = createMuiTheme({
       main: merchantRed,
     },
   },
-  // typography: {
-
-  // }
+  overrides: {
+    MuiInput: {
+      underline: {
+        "&:after": {
+          borderBottom: "2px solid black",
+        },
+      },
+    },
+  },
+  typography: {
+    button: {
+      textTransform: 'none'
+    }
+  }
 });
 
-console.log(lightTheme)
-
-const darkTheme = createMuiTheme({
+let darkTheme = createMuiTheme({
   palette: {
     type: "dark",
   },
 });
 
-export { lightTheme, darkTheme };
+let defaultTheme = createMuiTheme({
+  palette: {
+    common: {
+      white: merchantWhite,
+      red: merchantRed,
+      lightGrey: merchantLightGrey,
+      grey: merchantGrey,
+    },
+  },
+});
+
+lightTheme = responsiveFontSizes(lightTheme);
+darkTheme = responsiveFontSizes(darkTheme);
+defaultTheme = responsiveFontSizes(defaultTheme);
+
+// console.log(lightTheme);
+
+export { lightTheme, darkTheme, defaultTheme };
