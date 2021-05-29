@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 
 import CartSVG from '../../assets/login/cart.svg';
 import routes from '../../common/routes';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   cartPic: {
@@ -63,6 +64,19 @@ const Login = (props) => {
 
   return (
     <Box textAlign="center" bgcolor={theme.palette.common.lightGrey} height="100vh">
+      <Box textAlign="left">
+        <Button
+          variant="text"
+          color="secondary"
+          size="large"
+          startIcon={<ArrowBackIcon />}
+          component={Link}
+          to={routes.homepage}
+          className={classes.backButton}
+        >
+          Go Back To Home
+        </Button>
+      </Box>
       <Container className={classes.container} disableGutters maxWidth="lg">
         <Grid className={classes.gridContainer} container alignItems="center">
           <Grid item xs={12} sm>
@@ -106,16 +120,16 @@ const Login = (props) => {
                 </FormHelperText>
               </CardActions>
               <CardActions className={classes.cardActions}>
-                <Link
+                <Button
                   fullWidth
                   variant="outlined"
                   color="secondary"
                   size="large"
-                  component={Button}
+                  component={Link}
                   to={routes.signup}
                 >
                   Create New Account
-                </Link>
+                </Button>
               </CardActions>
             </Card>
           </Grid>

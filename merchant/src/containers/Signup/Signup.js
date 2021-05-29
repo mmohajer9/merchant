@@ -14,6 +14,8 @@ import {
   InputLabel,
   FormHelperText,
 } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import { Link } from 'react-router-dom';
 
 import CartSVG from '../../assets/login/cart.svg';
@@ -55,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  backButton: {
+    textAlign: 'center',
+  },
 }));
 
 const Signup = (props) => {
@@ -63,6 +68,19 @@ const Signup = (props) => {
 
   return (
     <Box textAlign="center" bgcolor={theme.palette.common.lightGrey} height="100vh">
+      <Box textAlign="left">
+        <Button
+          variant="text"
+          color="secondary"
+          size="large"
+          startIcon={<ArrowBackIcon />}
+          component={Link}
+          to={routes.homepage}
+          className={classes.backButton}
+        >
+          Go Back To Home
+        </Button>
+      </Box>
       <Container className={classes.container} disableGutters maxWidth="lg">
         <Grid className={classes.gridContainer} container alignItems="center">
           <Grid item xs={12} sm>
@@ -88,12 +106,7 @@ const Signup = (props) => {
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="email">Email</InputLabel>
-                  <Input
-                    fullWidth
-                    autoFocus
-                    id="email"
-                    aria-describedby="email-helper-text"
-                  />
+                  <Input fullWidth autoFocus id="email" aria-describedby="email-helper-text" />
                   <FormHelperText id="email-helper-text">Enter your username</FormHelperText>
                 </FormControl>
                 <FormControl className={classes.formControl}>
@@ -103,8 +116,14 @@ const Signup = (props) => {
                 </FormControl>
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="confirm-password-helper">Confirm Your Password</InputLabel>
-                  <Input fullWidth id="confirm-password-helper" aria-describedby="confirm-password-helper-text" />
-                  <FormHelperText id="confirm-password-helper-text">Enter your password again for confirmation</FormHelperText>
+                  <Input
+                    fullWidth
+                    id="confirm-password-helper"
+                    aria-describedby="confirm-password-helper-text"
+                  />
+                  <FormHelperText id="confirm-password-helper-text">
+                    Enter your password again for confirmation
+                  </FormHelperText>
                 </FormControl>
               </CardContent>
               <CardActions className={classes.cardActions}>
@@ -121,16 +140,16 @@ const Signup = (props) => {
                 </FormHelperText>
               </CardActions>
               <CardActions className={classes.cardActions}>
-                <Link
+                <Button
                   fullWidth
                   variant="outlined"
                   color="secondary"
                   size="large"
-                  component={Button}
+                  component={Link}
                   to={routes.login}
                 >
                   Already Have an Account ?
-                </Link>
+                </Button>
               </CardActions>
             </Card>
           </Grid>
