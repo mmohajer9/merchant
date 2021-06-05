@@ -129,7 +129,7 @@ export default function CustomizedMenus() {
           disableRipple
           className={classes.tab}
           component={Link}
-          to={routes.login}
+          to={routes.authentication}
           icon={<PersonOutlineOutlinedIcon />}
         />
         <Tab

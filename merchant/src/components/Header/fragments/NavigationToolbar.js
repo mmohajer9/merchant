@@ -135,7 +135,7 @@ const Navigation = (props) => {
             disableRipple
             className={classes.tab}
             component={Link}
-            to={routes.login}
+            to={routes.authentication}
             classes={{
               wrapper: classes.inlineTab,
             }}
