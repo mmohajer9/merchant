@@ -139,7 +139,7 @@ const Navigation = (props) => {
             classes={{
               wrapper: classes.inlineTab,
             }}
-            label="Login / Signup"
+            label="Login Into Your Account"
             icon={<PersonOutlineOutlinedIcon />}
           />
           <Tab

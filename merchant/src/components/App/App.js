@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 import Homepage from '../../containers/Homepage/Homepage';
 import routes from '../../common/routes';
 import Cart from '../../containers/Cart/Cart';
-import Panel from '../../containers/Panel/Panel';
+import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 
@@ -27,7 +27,7 @@ const App = () => {
             <Header />
             <Route exact path={routes.homepage} component={Homepage} />
             <Route exact path={routes.cart} component={Cart} />
-            <Route exact path={routes.panel} component={Panel} />
+            <Route exact path={routes.profile} component={Profile} />
             <Footer />
           </Route>
         </Switch>

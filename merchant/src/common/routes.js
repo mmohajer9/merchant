@@ -1,6 +1,6 @@
 const routes = {
   homepage: '/',
-  panel: '/panel',
+  profile: '/profile',
   cart: '/cart',
   authentication: '/auth',
   aboutus: '/aboutus',
