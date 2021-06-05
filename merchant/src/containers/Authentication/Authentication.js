@@ -77,10 +77,14 @@ const useStyles = makeStyles((theme) => ({
 const Authentication = (props) => {
   const theme = useTheme();
   const classes = useStyles();
-  const [isLogin, setIsLogin] = React.useState(true);
+  const [mode, setMode] = React.useState('login');
 
   return (
-    <Box textAlign="center" bgcolor={theme.palette.common.lightGrey} height="100vh">
+    <Box
+      textAlign="center"
+      bgcolor={theme.palette.common.lightGrey}
+      height="100vh"
+    >
       <Fab
         className={classes.backButton}
         component={Link}
@@ -97,8 +101,16 @@ const Authentication = (props) => {
           <Grid item xs={12} sm>
             <img className={classes.cartPic} alt="CartSVG" src={CartSVG} />
           </Grid>
-          {isLogin ? (
-            <Grid item xs={12} sm container direction="column" justify="center" alignItems="center">
+          {mode === 'login' ? (
+            <Grid
+              item
+              xs={12}
+              sm
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
               <Grid item>
                 <Typography variant="h4" color="secondary" gutterBottom>
                   Login
@@ -114,23 +126,41 @@ const Authentication = (props) => {
                       id="username"
                       aria-describedby="username-helper-text"
                     />
-                    <FormHelperText id="username-helper-text">Enter your username</FormHelperText>
+                    <FormHelperText id="username-helper-text">
+                      Enter Your Username
+                    </FormHelperText>
                   </FormControl>
                   <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="password-helper">Password</InputLabel>
-                    <Input fullWidth id="password-helper" aria-describedby="password-helper-text" />
-                    <FormHelperText id="password-helper-text">Enter your Password</FormHelperText>
+                    <Input
+                      fullWidth
+                      id="password-helper"
+                      aria-describedby="password-helper-text"
+                    />
+                    <FormHelperText id="password-helper-text">
+                      Enter Your Password
+                    </FormHelperText>
                   </FormControl>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                  <Button fullWidth variant="contained" color="secondary" size="large">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                  >
                     Login
                   </Button>
                 </CardActions>
                 <CardActions className={classes.cardActions}>
                   <FormHelperText id="forget-password-helper-text">
-                    Forgot your password?
-                    <Button color="secondary" to={routes.forgotPassword} component={Link}>
+                    Forgot Your Password?
+                    <Button
+                      color="secondary"
+                      to={routes.forgotPassword}
+                      component={Link}
+                      onClick={() => setMode('forgotPassword')}
+                    >
                       Click Here
                     </Button>
                   </FormHelperText>
@@ -141,15 +171,23 @@ const Authentication = (props) => {
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setIsLogin((prevState) => !prevState)}
+                    onClick={() => setMode('signUp')}
                   >
                     Create New Account
                   </Button>
                 </CardActions>
               </Card>
             </Grid>
-          ) : (
-            <Grid item xs={12} sm container direction="column" justify="center" alignItems="center">
+          ) : mode === 'signUp' ? (
+            <Grid
+              item
+              xs={12}
+              sm
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
               <Grid item>
                 <Typography variant="h4" color="secondary" gutterBottom>
                   Sign Up
@@ -165,39 +203,64 @@ const Authentication = (props) => {
                       id="username"
                       aria-describedby="username-helper-text"
                     />
-                    <FormHelperText id="username-helper-text">Enter your username</FormHelperText>
+                    <FormHelperText id="username-helper-text">
+                      Enter Your Username
+                    </FormHelperText>
                   </FormControl>
                   <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="email">Email</InputLabel>
-                    <Input fullWidth autoFocus id="email" aria-describedby="email-helper-text" />
-                    <FormHelperText id="email-helper-text">Enter your username</FormHelperText>
+                    <Input
+                      fullWidth
+                      autoFocus
+                      id="email"
+                      aria-describedby="email-helper-text"
+                    />
+                    <FormHelperText id="email-helper-text">
+                      Enter Your Email
+                    </FormHelperText>
                   </FormControl>
                   <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="password-helper">Password</InputLabel>
-                    <Input fullWidth id="password-helper" aria-describedby="password-helper-text" />
-                    <FormHelperText id="password-helper-text">Enter your password</FormHelperText>
+                    <Input
+                      fullWidth
+                      id="password-helper"
+                      aria-describedby="password-helper-text"
+                    />
+                    <FormHelperText id="password-helper-text">
+                      Enter Your Password
+                    </FormHelperText>
                   </FormControl>
                   <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="confirm-password-helper">Confirm Your Password</InputLabel>
+                    <InputLabel htmlFor="confirm-password-helper">
+                      Confirm Your Password
+                    </InputLabel>
                     <Input
                       fullWidth
                       id="confirm-password-helper"
                       aria-describedby="confirm-password-helper-text"
                     />
                     <FormHelperText id="confirm-password-helper-text">
-                      Enter your password again for confirmation
+                      Enter Your Password Again For Confirmation
                     </FormHelperText>
                   </FormControl>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                  <Button fullWidth variant="contained" color="secondary" size="large">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                  >
                     Register
                   </Button>
                 </CardActions>
                 <CardActions className={classes.cardActions}>
                   <FormHelperText id="forget-password-helper-text">
-                    Forgot your password?
-                    <Button color="secondary" component={Link} to={routes.forgotPassword}>
+                    Forgot Your Password?
+                    <Button
+                      color="secondary"
+                      onClick={() => setMode('forgotPassword')}
+                    >
                       Click Here
                     </Button>
                   </FormHelperText>
@@ -208,9 +271,73 @@ const Authentication = (props) => {
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setIsLogin((prevState) => !prevState)}
+                    onClick={() => setMode('login')}
                   >
                     Already Have an Account ?
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ) : (
+            <Grid
+              item
+              xs={12}
+              sm
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography variant="h4" color="secondary" gutterBottom>
+                  Forgot Your Password ?
+                </Typography>
+              </Grid>
+              <Card className={classes.cardRoot}>
+                <CardContent className={classes.cardContentRoot}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="email">Email</InputLabel>
+                    <Input
+                      fullWidth
+                      autoFocus
+                      id="email"
+                      aria-describedby="email-helper-text"
+                    />
+                    <FormHelperText id="email-helper-text">
+                      Enter Your Email
+                    </FormHelperText>
+                  </FormControl>
+                </CardContent>
+                <CardActions className={classes.cardActions}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                  >
+                    Submit
+                  </Button>
+                </CardActions>
+                <CardActions className={classes.cardActions}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    color="secondary"
+                    size="large"
+                    onClick={() => setMode('login')}
+                  >
+                    Already Have an Account ?
+                  </Button>
+                </CardActions>
+                <CardActions className={classes.cardActions}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    color="secondary"
+                    size="large"
+                    onClick={() => setMode('signUp')}
+                  >
+                    Create New Account
                   </Button>
                 </CardActions>
               </Card>
