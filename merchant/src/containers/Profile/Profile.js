@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   noPurchaseIcon : {
-    fontSize : theme.typography.fontSize * 7.25
+    fontSize : theme.typography.fontSize * 4.5
   }
 }));
 
@@ -74,7 +74,7 @@ const Profile = (props) => {
           justify="space-between"
           alignItems="flex-start"
         >
-          <Grid item container direction="column" xs={12} sm={4}>
+          <Grid item container direction="column" xs={12} sm={12} md={4}>
             <Card>
               <CardContent>
                 <List
@@ -174,7 +174,7 @@ const Profile = (props) => {
               </CardActions>
             </Card>
           </Grid>
-          <Grid item container direction="row" xs={12} sm={8}>
+          <Grid item container direction="row" xs={12} sm={12} md={8}>
             <Grid item className={classes.personalInfo} xs={12}>
               <Card>
                 <CardContent>
@@ -202,7 +202,7 @@ const Profile = (props) => {
                       >
                         Email
                       </Typography>
-                      <Typography color="textPrimary" variant="h6" gutterBottom>
+                      <Typography noWrap color="textPrimary" variant="h6" gutterBottom>
                         mohajer@ec.iut.ac.ir
                       </Typography>
                     </Grid>
@@ -275,7 +275,7 @@ const Profile = (props) => {
                       <ErrorOutlineOutlinedIcon fontSize="inherit" />
                     </Grid>
                     <Grid item className={classes.noPurchaseText}>
-                      <Typography color="textPrimary" gutterBottom>
+                      <Typography align="center" color="textPrimary" gutterBottom>
                         You Have No Any Recent Purchases
                       </Typography>
                     </Grid>
