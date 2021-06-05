@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   noPurchaseIcon : {
-    fontSize : theme.typography.fontSize * 4.5
+    fontSize : theme.typography.fontSize * 7.25
   }
 }));
 
