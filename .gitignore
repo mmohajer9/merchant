@@ -88,5 +88,8 @@ local_settings.py
 db.sqlite3
 venv
 .vscode
+
+
+# OPTIONAL -> NEED TO GET REMOVED LATER
 static/
 staticfiles/
