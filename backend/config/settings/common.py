@@ -16,7 +16,13 @@ from datetime import timedelta
 from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Before Splitting
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# After Splitting
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 TEMPLATE_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
 MEDIA_DIR = BASE_DIR / "media"
@@ -38,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # ? local apps
+    "accounts.apps.AccountsConfig",
 ]
 
 
@@ -198,6 +206,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = MEDIA_DIR
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
+
 AUTH_USER_MODEL = "accounts.User"
 
 # LOGIN_URL = None
