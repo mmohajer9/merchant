@@ -50,7 +50,6 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
-    history = HistoricalRecords()
 
     class Meta:
         # db_table = ''
