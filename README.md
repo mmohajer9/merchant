@@ -1,4 +1,4 @@
-# Project Title
+# Merchant
 
 merchant is a comprehensive e-commerce platform built on Django and React
 
