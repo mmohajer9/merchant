@@ -28,6 +28,7 @@
       10. [x] black
       11. [x] django-import-export
       12. [x] drf-yasg[validation]
+      13. [x] django-imagekit
    5. Security
       1. [x] django-admin-honeypot
       2. [x] django-honeypot

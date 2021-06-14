@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django_filters",
     "simple_history",
     "drf_yasg",
+    "imagekit",
     # ? security
     "corsheaders",
     "admin_honeypot",
@@ -151,10 +152,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # FOR LOCALIZATION
-    # "django.middleware.locale.LocaleMiddleware",
     # FOR django simple history
     "simple_history.middleware.HistoryRequestMiddleware",
+    # FOR LOCALIZATION
+    # "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
