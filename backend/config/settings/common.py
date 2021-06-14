@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # ? local apps
     "accounts.apps.AccountsConfig",
     "application.apps.ApplicationConfig",
+    "roles.apps.RolesConfig",
     # ? 3rd party apps
     "rest_framework",
     "rest_framework.authtoken",
