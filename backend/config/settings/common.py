@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
-from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -44,11 +43,34 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     # ? local apps
     "accounts.apps.AccountsConfig",
-    "application.apps.ApplicationConfig"
+    "application.apps.ApplicationConfig",
+    # ? 3rd party apps
+    "rest_framework",
+    "rest_framework.authtoken",
+    "import_export",
+    "request",
+    "django_extensions",
+    "django_filters",
+    "simple_history",
+    # ? security
+    "corsheaders",
+    "admin_honeypot",
+    # ? authentication
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "dj_rest_auth.registration",
+    # ? social authentication
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
 ]
 
+# for dj-rest-auth and allauth registration
+SITE_ID = 1
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -85,9 +107,10 @@ REST_FRAMEWORK = {
 }
 
 # ? dj-rest-auth Settings
-JWT_AUTH_RETURN_EXPIRATION = True
 REST_USE_JWT = True
+JWT_AUTH_RETURN_EXPIRATION = True
 # JWT_AUTH_COOKIE = "merchant-auth"
+# JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 ACCOUNT_LOGOUT_ON_GET = False
 OLD_PASSWORD_FIELD_ENABLED = True
 
@@ -117,12 +140,19 @@ SIMPLE_JWT = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # FOR CORS Headers
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    # FOR django-request
+    "request.middleware.RequestMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # FOR LOCALIZATION
     # "django.middleware.locale.LocaleMiddleware",
+    # FOR django simple history
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
