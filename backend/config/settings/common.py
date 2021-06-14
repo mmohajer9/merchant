@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_filters",
     "simple_history",
+    "drf_yasg",
     # ? security
     "corsheaders",
     "admin_honeypot",
@@ -64,9 +65,9 @@ INSTALLED_APPS = [
     "allauth.account",
     "dj_rest_auth.registration",
     # ? social authentication
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.twitter',
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.twitter",
 ]
 
 # for dj-rest-auth and allauth registration

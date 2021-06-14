@@ -27,6 +27,7 @@
       9. [x] django-cities
       10. [x] black
       11. [x] django-import-export
+      12. [x] drf-yasg[validation]
    5. Security
       1. [x] django-admin-honeypot
       2. [x] django-honeypot
@@ -41,6 +42,6 @@
    6. [x] Token-based and JWT Auth Settings
 3. Optional
    1. [ ] Dynamic Settings
-   2. [ ] Add API Doc > Swagger > drf-yasg
+   2. [x] Add API Doc > Swagger > drf-yasg
 4. Deployment
    1. [Checklist](https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/)
