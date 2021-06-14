@@ -25,10 +25,22 @@
       7. [x] notebook
       8. [x] ipython
       9. [x] django-cities
+      10. [x] black
+      11. [x] django-import-export
+   5. Security
+      1. [x] django-admin-honeypot
+      2. [x] django-honeypot
+      3. [x] django-cors-headers
 2. Standards
    1. [x] django-admin startproject config
-   2. [ ] Add Password Hasher Settings
-   3. [ ] Custom User Model
-   4. [ ] Token-based Auth
-   5. [ ] JWT Auth
-   6. [ ] Dynamic Settings
+   2. Split Settings
+      1. [x] settings folder > \_\_init\_\_.py > base.py > development.py > production.py
+   3. [ ] Add 3rd Party Apps into the installed_apps
+   4. [x] Add Last Project Settings
+   5. [ ] Custom User Model
+   6. [ ] Token-based Auth
+   7. [ ] JWT Auth
+   8. [ ] Dynamic Settings
+   9. [ ] Add API Doc > Swagger > drf-yasg
+3. Deployment
+   1. [Checklist](https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/)
