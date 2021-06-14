@@ -35,11 +35,12 @@
    1. [x] django-admin startproject config
    2. Split Settings
       1. [x] settings folder > \_\_init\_\_.py > base.py > development.py > production.py
-   3. [ ] Add 3rd Party Apps into the installed_apps
+   3. [x] Add 3rd Party Apps into the installed_apps
    4. [x] Add Last Project Settings > URLs Configurations
    5. [x] Custom User Model
    6. [x] Token-based and JWT Auth Settings
-   7. [ ] Dynamic Settings
-   8. [ ] Add API Doc > Swagger > drf-yasg
-3. Deployment
+3. Optional
+   1. [ ] Dynamic Settings
+   2. [ ] Add API Doc > Swagger > drf-yasg
+4. Deployment
    1. [Checklist](https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/)
