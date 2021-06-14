@@ -10,6 +10,8 @@ merchant is a comprehensive e-commerce platform built on Django and React
 ## Installation
 
 1. `pip install -r requirements.txt`
+2. `python manage.py collectstatic`
+3. set your environment variables in .env file
 
 ## Usage
 
