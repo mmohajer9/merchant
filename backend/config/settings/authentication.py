@@ -20,7 +20,6 @@ AUTH_USER_MODEL = "accounts.User"
 
 SITE_ID = 1
 
-
 # ? allauth , dj-rest-auth , simpleJWT settings
 
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
@@ -29,9 +28,9 @@ REST_USE_JWT = True
 
 JWT_AUTH_RETURN_EXPIRATION = True
 
-# JWT_AUTH_COOKIE = "merchant-auth"
+# JWT_AUTH_COOKIE = "merchant-access"
 
-# JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+# JWT_AUTH_REFRESH_COOKIE = 'merchant-refresh'
 
 ACCOUNT_LOGOUT_ON_GET = False
 

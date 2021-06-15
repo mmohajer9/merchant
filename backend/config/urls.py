@@ -23,6 +23,10 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from dj_rest_auth.views import (
+    PasswordResetConfirmView,
+)
+
 import debug_toolbar
 
 
@@ -45,11 +49,16 @@ urlpatterns = [
     path("secret/", admin.site.urls),
     path("explorer/", include("explorer.urls")),
     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    # ------------------------------------------------------------------------------
     # ? authentication
-    path("dj-auth/", include("django.contrib.auth.urls")),
-    # path('allauth/', include('allauth.urls')),
-    path("rest-auth/", include("dj_rest_auth.urls")),
-    path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("api/rest-auth/", include("dj_rest_auth.urls")),
+    path("api/rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path(
+        "api/rest-auth/password/reset/confirm/<uidb64>/<token>/",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    # ------------------------------------------------------------------------------
     # ? api doc
     url(
         r"^doc(?P<format>\.json|\.yaml)$",
@@ -64,6 +73,7 @@ urlpatterns = [
     url(
         r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
+    # ------------------------------------------------------------------------------
 ]
 
 
