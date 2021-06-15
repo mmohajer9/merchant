@@ -17,22 +17,19 @@
       3. [x] django argon2 passsword hasher
    4. Utility
       1. [x] django-extensions
-      2. [x] django-cities
-      3. [x] markdown
-      4. [x] django-filter
-      5. [x] drf-extra-fields
-      6. [x] django-request
-      7. [x] notebook
-      8. [x] ipython
-      9. [x] django-cities
-      10. [x] black
-      11. [x] django-import-export
-      12. [x] drf-yasg[validation]
-      13. [x] django-imagekit
+      2. [x] markdown
+      3. [x] django-filter
+      4. [x] drf-extra-fields
+      5. [x] django-request
+      6. [x] notebook
+      7. [x] ipython
+      8. [x] black
+      9. [x] django-import-export
+      10. [x] drf-yasg[validation]
+      11. [x] django-imagekit
    5. Security
       1. [x] django-admin-honeypot
-      2. [x] django-honeypot
-      3. [x] django-cors-headers
+      2. [x] django-cors-headers
 2. Standards
    1. [x] django-admin startproject config
    2. Split Settings

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -72,8 +71,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.twitter",
 ]
 
-# for dj-rest-auth and allauth registration
-SITE_ID = 1
+# ? REST Framework Global Settings
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -107,48 +105,6 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ],
-}
-
-# allauth settings
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    "django.contrib.auth.backends.ModelBackend",
-    # `allauth` specific authentication methods, such as login by e-mail
-    "allauth.account.auth_backends.AuthenticationBackend",
-]
-
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-
-
-# ? dj-rest-auth Settings
-REST_USE_JWT = True
-JWT_AUTH_RETURN_EXPIRATION = True
-# JWT_AUTH_COOKIE = "merchant-auth"
-# JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-ACCOUNT_LOGOUT_ON_GET = False
-OLD_PASSWORD_FIELD_ENABLED = True
-
-# ? SimpleJWT
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
-    "ROTATE_REFRESH_TOKENS": True,
-    "BLACKLIST_AFTER_ROTATION": True,
-    "UPDATE_LAST_LOGIN": True,
-    # 'ALGORITHM': 'HS256',
-    # 'SIGNING_KEY': SECRET_KEY,
-    # 'VERIFYING_KEY': None,
-    # 'AUDIENCE': None,
-    # 'ISSUER': None,
-    # 'AUTH_HEADER_TYPES': ('Bearer',),
-    # 'USER_ID_FIELD': 'id',
-    # 'USER_ID_CLAIM': 'user_id',
-    # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    # 'TOKEN_TYPE_CLAIM': 'token_type',
-    # 'JTI_CLAIM': 'jti',
-    # 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
 MIDDLEWARE = [
@@ -239,7 +195,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
 # ? static_root is needed for collectstatic and deployment
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
@@ -251,12 +209,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = MEDIA_DIR
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
-
-AUTH_USER_MODEL = "accounts.User"
-
-# LOGIN_URL = None
-# LOGIN_REDIRECT_URL = None
-# LOGOUT_REDIRECT_URL = None
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
