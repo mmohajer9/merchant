@@ -4,14 +4,10 @@ import {
   Grid,
   useTheme,
   makeStyles,
-  Input,
   Typography,
   Card,
-  CardContent,
   CardActions,
   Button,
-  FormControl,
-  InputLabel,
   FormHelperText,
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -20,7 +16,10 @@ import { Link } from 'react-router-dom';
 
 import CartSVG from '../../assets/login/cart.svg';
 import routes from '../../common/routes';
+import Login from './Login';
 import React from 'react';
+import Register from './Register';
+import ForgotPassword from './ForgotPassword';
 
 const useStyles = makeStyles((theme) => ({
   cartPic: {
@@ -39,24 +38,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4, 1, 4, 1),
     marginBottom: theme.spacing(4),
   },
-  cardContentRoot: {
-    padding: theme.spacing(2),
-  },
   cardActions: {
     justifyContent: 'center',
     flexWrap: 'wrap',
-  },
-  formControl: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  pos: {
-    marginBottom: 12,
   },
   extendedIcon: {
     marginRight: 17,
@@ -78,6 +62,9 @@ const Authentication = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [mode, setMode] = React.useState('login');
+  const switchTo = (nextMode) => () => {
+    setMode(nextMode);
+  };
 
   return (
     <Box
@@ -117,49 +104,13 @@ const Authentication = (props) => {
                 </Typography>
               </Grid>
               <Card className={classes.cardRoot}>
-                <CardContent className={classes.cardContentRoot}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input
-                      fullWidth
-                      autoFocus
-                      id="username"
-                      aria-describedby="username-helper-text"
-                    />
-                    <FormHelperText id="username-helper-text">
-                      Enter Your Username
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="password-helper">Password</InputLabel>
-                    <Input
-                      fullWidth
-                      id="password-helper"
-                      aria-describedby="password-helper-text"
-                    />
-                    <FormHelperText id="password-helper-text">
-                      Enter Your Password
-                    </FormHelperText>
-                  </FormControl>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                  >
-                    Login
-                  </Button>
-                </CardActions>
+                <Login />
                 <CardActions className={classes.cardActions}>
                   <FormHelperText id="forget-password-helper-text">
                     Forgot Your Password?
                     <Button
                       color="secondary"
-                      to={routes.forgotPassword}
-                      component={Link}
-                      onClick={() => setMode('forgotPassword')}
+                      onClick={switchTo('forgotPassword')}
                     >
                       Click Here
                     </Button>
@@ -171,7 +122,7 @@ const Authentication = (props) => {
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setMode('signUp')}
+                    onClick={switchTo('signUp')}
                   >
                     Create New Account
                   </Button>
@@ -194,72 +145,13 @@ const Authentication = (props) => {
                 </Typography>
               </Grid>
               <Card className={classes.cardRoot}>
-                <CardContent className={classes.cardContentRoot}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input
-                      fullWidth
-                      autoFocus
-                      id="username"
-                      aria-describedby="username-helper-text"
-                    />
-                    <FormHelperText id="username-helper-text">
-                      Enter Your Username
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="email">Email</InputLabel>
-                    <Input
-                      fullWidth
-                      autoFocus
-                      id="email"
-                      aria-describedby="email-helper-text"
-                    />
-                    <FormHelperText id="email-helper-text">
-                      Enter Your Email
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="password-helper">Password</InputLabel>
-                    <Input
-                      fullWidth
-                      id="password-helper"
-                      aria-describedby="password-helper-text"
-                    />
-                    <FormHelperText id="password-helper-text">
-                      Enter Your Password
-                    </FormHelperText>
-                  </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="confirm-password-helper">
-                      Confirm Your Password
-                    </InputLabel>
-                    <Input
-                      fullWidth
-                      id="confirm-password-helper"
-                      aria-describedby="confirm-password-helper-text"
-                    />
-                    <FormHelperText id="confirm-password-helper-text">
-                      Enter Your Password Again For Confirmation
-                    </FormHelperText>
-                  </FormControl>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                  >
-                    Register
-                  </Button>
-                </CardActions>
+                <Register />
                 <CardActions className={classes.cardActions}>
                   <FormHelperText id="forget-password-helper-text">
                     Forgot Your Password?
                     <Button
                       color="secondary"
-                      onClick={() => setMode('forgotPassword')}
+                      onClick={switchTo('forgotPassword')}
                     >
                       Click Here
                     </Button>
@@ -271,7 +163,7 @@ const Authentication = (props) => {
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setMode('login')}
+                    onClick={switchTo('login')}
                   >
                     Already Have an Account ?
                   </Button>
@@ -294,37 +186,14 @@ const Authentication = (props) => {
                 </Typography>
               </Grid>
               <Card className={classes.cardRoot}>
-                <CardContent className={classes.cardContentRoot}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="email">Email</InputLabel>
-                    <Input
-                      fullWidth
-                      autoFocus
-                      id="email"
-                      aria-describedby="email-helper-text"
-                    />
-                    <FormHelperText id="email-helper-text">
-                      Enter Your Email
-                    </FormHelperText>
-                  </FormControl>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                  >
-                    Submit
-                  </Button>
-                </CardActions>
+                <ForgotPassword />
                 <CardActions className={classes.cardActions}>
                   <Button
                     fullWidth
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setMode('login')}
+                    onClick={switchTo('login')}
                   >
                     Already Have an Account ?
                   </Button>
@@ -335,7 +204,7 @@ const Authentication = (props) => {
                     variant="outlined"
                     color="secondary"
                     size="large"
-                    onClick={() => setMode('signUp')}
+                    onClick={switchTo('signUp')}
                   >
                     Create New Account
                   </Button>
