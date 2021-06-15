@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "simple_history",
     "drf_yasg",
     "imagekit",
+    "request",
     # ? security
     "corsheaders",
     "admin_honeypot",
