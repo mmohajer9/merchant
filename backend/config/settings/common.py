@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "import_export",
-    "request",
     "django_extensions",
     "django_filters",
     "simple_history",
@@ -108,18 +107,14 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    # FOR CORS Headers
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    # FOR django-request
     "request.middleware.RequestMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # FOR django simple history
     "simple_history.middleware.HistoryRequestMiddleware",
-    # FOR LOCALIZATION
     # "django.middleware.locale.LocaleMiddleware",
 ]
 

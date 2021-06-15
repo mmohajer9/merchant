@@ -88,3 +88,4 @@ class SellerProfile(models.Model):
         # managed = True
         verbose_name = "Seller Profile"
         verbose_name_plural = "Seller Profiles"
+
