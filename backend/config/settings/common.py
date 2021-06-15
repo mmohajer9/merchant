@@ -71,8 +71,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.twitter",
 ]
 
-# ? REST Framework Global Settings
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
@@ -195,8 +193,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-
-# ? static_root is needed for collectstatic and deployment
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
