@@ -60,9 +60,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "admin_honeypot",
     # ? authentication
-    "dj_rest_auth",
     "allauth",
     "allauth.account",
+    "dj_rest_auth",
     "dj_rest_auth.registration",
     # ? social authentication
     "allauth.socialaccount",

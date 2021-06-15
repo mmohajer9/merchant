@@ -41,10 +41,16 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    # ? general purpose
     path("secret/", admin.site.urls),
     path("explorer/", include("explorer.urls")),
     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
-    path("api/v1/accounts/", include("accounts.urls", namespace="v1")),
+    # ? authentication
+    path("dj-auth/", include("django.contrib.auth.urls")),
+    # path('allauth/', include('allauth.urls')),
+    path("rest-auth/", include("dj_rest_auth.urls")),
+    path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    # ? api doc
     url(
         r"^doc(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),
