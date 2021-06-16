@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import (
     AbstractUser,
 )
+from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
@@ -14,6 +14,7 @@ from imagekit.processors import ResizeToFill
 
 class Country(models.Model):
     name = models.CharField(_("Country Name"), max_length=50)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +31,7 @@ class Province(models.Model):
         "Country", verbose_name=_("Country"), on_delete=models.CASCADE
     )
     name = models.CharField(_("Province Name"), max_length=50)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
 
     def __str__(self):
         return self.name
@@ -46,6 +48,7 @@ class City(models.Model):
         "Province", verbose_name=_("Province"), on_delete=models.CASCADE
     )
     name = models.CharField(_("City Name"), max_length=50)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
 
     def __str__(self):
         return self.name
@@ -118,6 +121,7 @@ class SellerProfile(models.Model):
         get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
     )
     title = models.CharField(max_length=500, verbose_name=_("Title"))
+    slug = AutoSlugField(populate_from="title", unique=True, null=True)
     business_phone = models.CharField(
         blank=True, null=True, max_length=15, verbose_name=_("Business Phone Number")
     )
@@ -161,6 +165,7 @@ class Address(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
+
     def __str__(self):
         return self.postal_code
 

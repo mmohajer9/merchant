@@ -28,7 +28,8 @@
       9. [x] django-import-export
       10. [x] drf-yasg[validation]
       11. [x] django-imagekit
-      12. [ ] drf-dynamic-fields
+      12. [ ] django-autoslug
+      13. [ ] drf-dynamic-fields
    5. Security
       1. [x] django-admin-honeypot
       2. [x] django-cors-headers
@@ -41,7 +42,8 @@
    5. [x] Custom User Model
    6. [x] Token-based and JWT Auth Settings
 3. Optional
-   1. [ ] Dynamic Settings
-   2. [x] Add API Doc > Swagger > drf-yasg
+   1. [x] Add API Doc > Swagger > drf-yasg
+   2. [ ] Dynamic Settings
+   3. [ ] slugify models and urls
 4. Deployment
    1. [Checklist](https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/)

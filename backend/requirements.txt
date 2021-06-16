@@ -21,6 +21,7 @@ Django==3.2.4
 django-admin-honeypot==1.1.0
 django-allauth==0.44.0
 django-appconf==1.0.4
+django-autoslug==1.9.8
 django-cities==0.6
 django-cors-headers==3.7.0
 django-debug-toolbar==3.2.1
