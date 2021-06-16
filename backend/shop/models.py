@@ -2,6 +2,7 @@ from autoslug.fields import AutoSlugField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from datetime import timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 
@@ -40,7 +41,7 @@ class Discount(models.Model):
         _("Discount Percentage"),
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
-
+    is_active = models.BooleanField(_("Active"), default=False)
     valid_from = models.DateTimeField()
     valid_to = models.DateTimeField()
 
@@ -50,6 +51,29 @@ class Discount(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
+
+    def is_valid(self):
+        now = timezone.now
+        return bool(now < self.valid_to)
+
+    is_valid.short_description = _("Valid")
+
+    def period(self):
+        delta = self.valid_to - self.valid_from
+        result = self.days_hours_minutes(delta)
+        return f"{result[0]} Days - {result[1]} Hours - {result[2]} Minutes"
+
+    period.short_description = _("Period")
+
+    def days_hours_minutes(td):
+        return td.days, td.seconds // 3600, (td.seconds // 60) % 60
+
+    def remaining_time(self):
+        delta = self.valid_to - timezone.now()
+        result = self.days_hours_minutes(delta)
+        return f"{result[0]} Days - {result[1]} Hours - {result[2]} Minutes"
+
+    remaining_time.short_description = _("Remaining Time")
 
     def __str__(self):
         return self.name
@@ -69,11 +93,11 @@ class Coupon(models.Model):
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
     code = models.CharField(_("Coupon Code"), max_length=50, unique=True)
-    is_active = models.BooleanField(_("Active"), default=False)
     percent = models.DecimalField(
         _("Coupon Percentage"), max_digits=4, decimal_places=2
     )
 
+    is_active = models.BooleanField(_("Active"), default=False)
     valid_from = models.DateTimeField(_("Valid From"))
     valid_to = models.DateTimeField(_("Valid To"))
 
@@ -83,6 +107,29 @@ class Coupon(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
+
+    def is_valid(self):
+        now = timezone.now
+        return bool(now < self.valid_to)
+
+    is_valid.short_description = _("Valid")
+
+    def period(self):
+        delta = self.valid_to - self.valid_from
+        result = self.days_hours_minutes(delta)
+        return f"{result[0]} Days - {result[1]} Hours - {result[2]} Minutes"
+
+    period.short_description = _("Period")
+
+    def days_hours_minutes(td):
+        return td.days, td.seconds // 3600, (td.seconds // 60) % 60
+
+    def remaining_time(self):
+        delta = self.valid_to - timezone.now()
+        result = self.days_hours_minutes(delta)
+        return f"{result[0]} Days - {result[1]} Hours - {result[2]} Minutes"
+
+    remaining_time.short_description = _("Remaining Time")
 
     def __str__(self):
         return self.name
@@ -122,6 +169,17 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
+
+    def final_price(self):
+
+        price = self.price
+        discount = self.discount.percent if self.discount.is_valid else None
+
+        final = price if not discount else (price * (100 - discount)) / 100
+
+        return final
+
+    final_price.short_description = _("Final Price")
 
     def __str__(self):
         return self.name
@@ -169,7 +227,10 @@ class Order(models.Model):
         get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
     )
     status = models.CharField(
-        max_length=100, choices=STATUS_CHOICES, verbose_name=_("Status")
+        max_length=100,
+        choices=STATUS_CHOICES,
+        verbose_name=_("Status"),
+        default="pending",
     )
     created_at = models.DateTimeField(
         _("Created at"), auto_now_add=True, blank=True, null=True
@@ -215,6 +276,7 @@ class OrderItem(models.Model):
         verbose_name = "Order Item"
         verbose_name_plural = "Order Items"
 
+
 class Bookmark(models.Model):
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
@@ -231,7 +293,7 @@ class Bookmark(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
-    
+
     def __str__(self):
         return self.user
 
