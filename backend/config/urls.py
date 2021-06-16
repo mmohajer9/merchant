@@ -27,8 +27,6 @@ from dj_rest_auth.views import (
     PasswordResetConfirmView,
 )
 
-import debug_toolbar
-
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -49,6 +47,10 @@ urlpatterns = [
     path("secret/", admin.site.urls),
     path("explorer/", include("explorer.urls")),
     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
+    # ------------------------------------------------------------------------------
+    # ? local apps
+    path("api/v1/accounts/", include("accounts.urls" , namespace="v1")),
+    # path("api/shop/", include("ship.urls" , namespace="v1")),
     # ------------------------------------------------------------------------------
     # ? authentication
     path("api/rest-auth/", include("dj_rest_auth.urls")),
@@ -78,6 +80,8 @@ urlpatterns = [
 
 
 if settings.DEBUG:
+    import debug_toolbar
+
     urlpatterns += (path("__debug__/", include(debug_toolbar.urls)),)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
