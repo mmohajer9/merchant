@@ -3,11 +3,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=500, verbose_name=_("Name"))
-    slug = AutoSlugField(populate_from='name' , unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
     description = models.CharField(
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
@@ -31,7 +32,7 @@ class Category(models.Model):
 class Discount(models.Model):
 
     name = models.CharField(max_length=500, verbose_name=_("Name"))
-    slug = AutoSlugField(populate_from='name' , unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
     description = models.CharField(
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
@@ -63,7 +64,7 @@ class Discount(models.Model):
 class Coupon(models.Model):
 
     name = models.CharField(max_length=500, verbose_name=_("Name"))
-    slug = AutoSlugField(populate_from='name' , unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
     description = models.CharField(
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
@@ -100,7 +101,7 @@ def product_image_upload_to(self, filename):
 class Product(models.Model):
 
     name = models.CharField(max_length=500, verbose_name=_("Name"))
-    slug = AutoSlugField(populate_from='name' , unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
     description = models.CharField(
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
@@ -130,3 +131,112 @@ class Product(models.Model):
         # managed = True
         verbose_name = "Product"
         verbose_name_plural = "Products"
+
+
+class CartItem(models.Model):
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+    )
+    product = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, verbose_name=_("Product")
+    )
+    quantity = models.IntegerField(verbose_name=_("Quantity of product"), default=1)
+    created_at = models.DateTimeField(
+        _("Created at"), auto_now_add=True, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(
+        _("Updated at"), auto_now=True, blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Cart Item"
+        verbose_name_plural = "Cart Items"
+
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ("pending", "pending"),
+        ("finished", "finished"),
+        ("aborted", "aborted"),
+    ]
+
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+    )
+    status = models.CharField(
+        max_length=100, choices=STATUS_CHOICES, verbose_name=_("Status")
+    )
+    created_at = models.DateTimeField(
+        _("Created at"), auto_now_add=True, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(
+        _("Updated at"), auto_now=True, blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        "Order", on_delete=models.CASCADE, verbose_name=_("Order")
+    )
+    product = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, verbose_name=_("Product")
+    )
+    quantity = models.IntegerField(default=1, verbose_name=_("Quantity"))
+    price = models.DecimalField(
+        max_digits=30, decimal_places=2, verbose_name=_("Order")
+    )
+    created_at = models.DateTimeField(
+        _("Created at"), auto_now_add=True, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(
+        _("Updated at"), auto_now=True, blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.order
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Order Item"
+        verbose_name_plural = "Order Items"
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+    )
+    description = models.CharField(
+        max_length=500, blank=True, null=True, verbose_name=_("Description")
+    )
+    product = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, verbose_name=_("Product")
+    )
+    created_at = models.DateTimeField(
+        _("Created at"), auto_now_add=True, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(
+        _("Updated at"), auto_now=True, blank=True, null=True
+    )
+    
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Bookmark"
+        verbose_name_plural = "Bookmarks"
