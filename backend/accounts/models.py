@@ -116,7 +116,7 @@ class User(AbstractUser):
     profile_pic_thumbnail.short_description = _("Thumbnail")
 
 
-class SellerProfile(models.Model):
+class Seller(models.Model):
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
     )
@@ -143,8 +143,8 @@ class SellerProfile(models.Model):
     class Meta:
         # db_table = ""
         # managed = True
-        verbose_name = "Seller Profile"
-        verbose_name_plural = "Seller Profiles"
+        verbose_name = "Seller"
+        verbose_name_plural = "Sellers"
 
 
 class Address(models.Model):

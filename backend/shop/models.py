@@ -2,9 +2,11 @@ from autoslug.fields import AutoSlugField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from datetime import timedelta
+from simple_history.models import HistoricalRecords
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
+from imagekit.models.fields import ImageSpecField
+from pilkit.processors.resize import ResizeToFill
 
 # Create your models here.
 class Category(models.Model):
@@ -27,7 +29,7 @@ class Category(models.Model):
         # db_table = ''
         # managed = True
         verbose_name = "Category"
-        verbose_name_plural = "Categorys"
+        verbose_name_plural = "Categories"
 
 
 class Discount(models.Model):
@@ -53,9 +55,10 @@ class Discount(models.Model):
     )
 
     def is_valid(self):
-        now = timezone.now
+        now = timezone.now()
         return bool(now < self.valid_to)
 
+    is_valid.boolean = True
     is_valid.short_description = _("Valid")
 
     def period(self):
@@ -65,7 +68,7 @@ class Discount(models.Model):
 
     period.short_description = _("Period")
 
-    def days_hours_minutes(td):
+    def days_hours_minutes(self, td):
         return td.days, td.seconds // 3600, (td.seconds // 60) % 60
 
     def remaining_time(self):
@@ -109,9 +112,10 @@ class Coupon(models.Model):
     )
 
     def is_valid(self):
-        now = timezone.now
+        now = timezone.now()
         return bool(now < self.valid_to)
 
+    is_valid.boolean = True
     is_valid.short_description = _("Valid")
 
     def period(self):
@@ -121,7 +125,7 @@ class Coupon(models.Model):
 
     period.short_description = _("Period")
 
-    def days_hours_minutes(td):
+    def days_hours_minutes(self, td):
         return td.days, td.seconds // 3600, (td.seconds // 60) % 60
 
     def remaining_time(self):
@@ -142,11 +146,14 @@ class Coupon(models.Model):
 
 
 def product_image_upload_to(self, filename):
-    return f"products/{self.user.username}/{filename}"
+    return f"products/{self.seller.user.username}/{filename}"
 
 
 class Product(models.Model):
 
+    seller = models.ForeignKey(
+        "accounts.Seller", verbose_name=_("Seller"), on_delete=models.CASCADE, null=True
+    )
     name = models.CharField(max_length=500, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from="name", unique=True, null=True)
     description = models.CharField(
@@ -156,11 +163,20 @@ class Product(models.Model):
         upload_to=product_image_upload_to, blank=True, verbose_name=_("Product Image")
     )
     category = models.ForeignKey(
-        "Category", verbose_name=_("Category"), on_delete=models.CASCADE
+        "Category",
+        verbose_name=_("Category"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.IntegerField(verbose_name=_("Quantity of product"), default=1)
     discount = models.ForeignKey(
-        "Discount", verbose_name=_("Product Discount"), on_delete=models.CASCADE
+        "Discount",
+        verbose_name=_("Product Discount"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(
@@ -169,11 +185,21 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         _("Updated at"), auto_now=True, blank=True, null=True
     )
+    history = HistoricalRecords()
+    image_thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFill(100, 100)],
+        format="JPEG",
+        options={"quality": 80},
+    )
+    image_thumbnail.short_description = _("Thumbnail")
 
     def final_price(self):
 
         price = self.price
-        discount = self.discount.percent if self.discount.is_valid else None
+        discount = (
+            self.discount.percent if (self.discount and self.discount.is_valid) else 0
+        )
 
         final = price if not discount else (price * (100 - discount)) / 100
 
@@ -181,6 +207,7 @@ class Product(models.Model):
 
     final_price.short_description = _("Final Price")
 
+    
     def __str__(self):
         return self.name
 

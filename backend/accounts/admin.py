@@ -5,7 +5,7 @@ from imagekit.admin import AdminThumbnail
 
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import User, SellerProfile, Address, City, Country, Province
+from .models import User, Seller, Address, City, Country, Province
 
 # Register your models here.
 
@@ -47,8 +47,8 @@ MyUserAdmin.fieldsets += (
 admin.site.register(User, MyUserAdmin)
 
 
-@admin.register(SellerProfile)
-class SellerProfileAdmin(SimpleHistoryAdmin):
+@admin.register(Seller)
+class SellerAdmin(SimpleHistoryAdmin):
     list_display = ("user", "title", "business_phone")
     # list_filter = ["user", "title", "business_phone"]
     # search_fields = ('user__username','postal_code__startswith')
