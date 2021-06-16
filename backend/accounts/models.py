@@ -13,7 +13,7 @@ from imagekit.processors import ResizeToFill
 
 
 class Country(models.Model):
-    name = models.CharField(_("Country Name"), max_length=50)
+    name = models.CharField(_("Country Name"), max_length=50, unique=True)
     slug = AutoSlugField(populate_from="name", unique=True, null=True)
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Province(models.Model):
         "Country", verbose_name=_("Country"), on_delete=models.CASCADE
     )
     name = models.CharField(_("Province Name"), max_length=50)
-    slug = AutoSlugField(populate_from="name", unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", null=True)
 
     def __str__(self):
         return self.name
@@ -48,7 +48,7 @@ class City(models.Model):
         "Province", verbose_name=_("Province"), on_delete=models.CASCADE
     )
     name = models.CharField(_("City Name"), max_length=50)
-    slug = AutoSlugField(populate_from="name", unique=True, null=True)
+    slug = AutoSlugField(populate_from="name", null=True)
 
     def __str__(self):
         return self.name
@@ -73,16 +73,16 @@ class User(AbstractUser):
     )
 
     nat_code = models.CharField(
-        _("National Code"), max_length=15, blank=True, null=True
+        _("National Code"), max_length=15, blank=True, null=True, unique=True
     )
     mobile_phone = models.CharField(
-        _("Mobile Phone Number"), max_length=15, blank=True, null=True
+        _("Mobile Phone Number"), max_length=15, blank=True, null=True, unique=True
     )
     telephone = models.CharField(
-        blank=True, null=True, max_length=15, verbose_name=_("Telephone")
+        blank=True, null=True, max_length=15, verbose_name=_("Telephone"), unique=True
     )
     birth_date = models.DateField(_("Date of Birth"), blank=True, null=True)
-    email = models.EmailField(_("Email Address"), blank=True, null=True)
+    email = models.EmailField(_("Email Address"), blank=True, null=True, unique=True)
     profile_pic = models.ImageField(
         upload_to=profile_pic_upload_to, blank=True, verbose_name=_("Profile Picture")
     )
@@ -121,7 +121,7 @@ class Seller(models.Model):
         get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
     )
     title = models.CharField(max_length=500, verbose_name=_("Title"))
-    slug = AutoSlugField(populate_from="title", unique=True, null=True)
+    slug = AutoSlugField(populate_from="title", null=True)
     business_phone = models.CharField(
         blank=True, null=True, max_length=15, verbose_name=_("Business Phone Number")
     )
@@ -153,7 +153,9 @@ class Address(models.Model):
     )
     city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.CASCADE)
 
-    postal_code = models.CharField(max_length=20, verbose_name=_("Postal Code"))
+    postal_code = models.CharField(
+        max_length=20, verbose_name=_("Postal Code"), unique=True
+    )
 
     line1 = models.CharField(max_length=200, verbose_name=_("First Line of Address"))
     line2 = models.CharField(
