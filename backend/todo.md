@@ -15,6 +15,7 @@
       1. [x] dj-rest-auth
       2. [x] djangorestframework-simplejwt
       3. [x] django argon2 passsword hasher
+      4. [x] django-allauth
    4. Utility
       1. [x] django-extensions
       2. [x] markdown
@@ -27,6 +28,7 @@
       9. [x] django-import-export
       10. [x] drf-yasg[validation]
       11. [x] django-imagekit
+      12. [ ] drf-dynamic-fields
    5. Security
       1. [x] django-admin-honeypot
       2. [x] django-cors-headers

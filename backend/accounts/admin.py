@@ -5,7 +5,7 @@ from imagekit.admin import AdminThumbnail
 
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import User, SellerProfile
+from .models import User, SellerProfile, Address, City, Country, Province
 
 # Register your models here.
 
@@ -44,10 +44,10 @@ MyUserAdmin.fieldsets += (
         },
     ),
 )
-
 admin.site.register(User, MyUserAdmin)
 
 
+@admin.register(SellerProfile)
 class SellerProfileAdmin(SimpleHistoryAdmin):
     list_display = ("user", "title", "business_phone")
     # list_filter = ["user", "title", "business_phone"]
@@ -55,4 +55,48 @@ class SellerProfileAdmin(SimpleHistoryAdmin):
     # prepopulated_fields = {'slug': ('title',)}
 
 
-admin.site.register(SellerProfile, SellerProfileAdmin)
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    # list_filter = ["user", "title", "business_phone"]
+    # search_fields = ('user__username','postal_code__startswith')
+    # prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Province)
+class ProvinceAdmin(admin.ModelAdmin):
+    list_display = ("name", "related_country")
+    # list_filter = ["user", "title", "business_phone"]
+    # search_fields = ('user__username','postal_code__startswith')
+    # prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ("name", "related_province", "country")
+    # list_filter = ["user", "title", "business_phone"]
+    # search_fields = ('user__username','postal_code__startswith')
+    # prepopulated_fields = {'slug': ('title',)}
+
+    def country(self, obj):
+        return obj.related_province.related_country
+
+    country.short_description = _("Country")
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ("user", "country", "province", "city", "postal_code")
+    # list_filter = ["user", "title", "business_phone"]
+    # search_fields = ('user__username','postal_code__startswith')
+    # prepopulated_fields = {'slug': ('title',)}
+
+    def province(self, obj):
+        return obj.city.related_province
+
+    province.short_description = _("Province")
+
+    def country(self, obj):
+        return obj.city.related_province.related_country
+
+    country.short_description = _("Country")
