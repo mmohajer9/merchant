@@ -8,7 +8,22 @@ import {
   TextField,
   FormControl,
   makeStyles,
+  CircularProgress,
 } from '@material-ui/core';
+
+
+import Snackbar from '@material-ui/core/Snackbar';
+
+import validator from 'validator';
+
+import axiosInstance from '../../common/axios';
+import routes from '../../common/routes';
+import { useHistory } from 'react-router';
+
+import MuiAlert from '@material-ui/lab/Alert';
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {
@@ -36,6 +51,13 @@ const validationSchema = yup.object({
 
 const Login = (props) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const [snackbarState, setSnackbarState] = React.useState({
+    open: false,
+    type: '',
+    msg: '',
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -43,11 +65,54 @@ const Login = (props) => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const isEmail = validator.isEmail(values.usernameOrEmail);
+      const path = routes.api.login.path;
+      const payload = routes.api.login.payload;
+
+      if (isEmail) {
+        payload.username = '';
+        payload.email = values.usernameOrEmail;
+        payload.password = values.password;
+      } else {
+        payload.email = '';
+        payload.username = values.usernameOrEmail;
+        payload.password = values.password;
+      }
+      try {
+        const { data } = await axiosInstance.post(path, payload);
+
+        localStorage.setItem('userInfo', JSON.stringify(data));
+
+        setSnackbarState({
+          open: true,
+          type: 'success',
+          msg: 'You have logged in successfully',
+        });
+        setTimeout(() => {
+          setSnackbarState({
+            open: false,
+            type: 'success',
+          });
+          history.push(routes.profile);
+        }, 1000);
+      } catch (error) {
+        setSnackbarState({
+          open: true,
+          type: 'error',
+          msg: 'You can not log in with these credentials',
+        });
+        setTimeout(
+          () =>
+            setSnackbarState({
+              open: false,
+              type: 'error',
+            }),
+          2000
+        );
+      }
     },
   });
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <CardContent className={classes.cardContentRoot}>
@@ -89,10 +154,23 @@ const Login = (props) => {
           color="secondary"
           size="large"
           type="submit"
+          disabled={formik.isSubmitting}
         >
-          Login
+          {formik.isSubmitting ? (
+            <CircularProgress color="secondary" />
+          ) : (
+            'Login'
+          )}
         </Button>
       </CardActions>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={snackbarState.open}
+      >
+        {snackbarState.open ? (
+          <Alert severity={snackbarState.type}>{snackbarState.msg}</Alert>
+        ) : null}
+      </Snackbar>
     </form>
   );
 };

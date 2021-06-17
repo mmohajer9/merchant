@@ -8,7 +8,14 @@ import {
   TextField,
   FormControl,
   makeStyles,
+  Snackbar,
+  CircularProgress,
 } from '@material-ui/core';
+
+import MuiAlert from '@material-ui/lab/Alert';
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {
@@ -54,6 +61,7 @@ const ForgotPassword = (props) => {
             variant="standard"
             fullWidth
             type="email"
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             helperText={formik.touched.email && formik.errors.email}
             error={formik.touched.email && Boolean(formik.errors.email)}
@@ -67,8 +75,13 @@ const ForgotPassword = (props) => {
           variant="contained"
           color="secondary"
           size="large"
+          disabled={formik.isSubmitting}
         >
-          Submit
+          {formik.isSubmitting ? (
+            <CircularProgress color="secondary" />
+          ) : (
+            'Submit'
+          )}
         </Button>
       </CardActions>
     </form>
