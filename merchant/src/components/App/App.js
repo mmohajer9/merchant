@@ -11,6 +11,7 @@ import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
+import Toast from '../../common/toast';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
@@ -42,6 +43,7 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
+      <Toast />
     </ThemeProvider>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useFormik } from 'formik';
@@ -14,7 +14,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useHistory } from 'react-router';
 
-import Toast from '../../common/toast';
 import loginAction from '../../store/auth/login';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,13 +46,6 @@ const Login = (props) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    type: '',
-    msg: '',
-    horizontal: 'right',
-    vertical: 'top',
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -115,13 +107,6 @@ const Login = (props) => {
           )}
         </Button>
       </CardActions>
-      <Toast
-        open={snackbarState.open}
-        type={snackbarState.type}
-        msg={snackbarState.msg}
-        vertical={snackbarState.vertical}
-        horizontal="right"
-      />
     </form>
   );
 };
