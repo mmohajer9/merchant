@@ -60,4 +60,5 @@ SIMPLE_JWT = {
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "accounts.serializers.UserDetailsSerializer",
+    "PASSWORD_RESET_CONFIRM_SERIALIZER": "accounts.serializers.MyPasswordResetConfirmSerializer",
 }

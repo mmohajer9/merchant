@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
+from django.urls.conf import re_path
+from django.views.generic.base import TemplateView
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -53,6 +55,7 @@ urlpatterns = [
     # path("api/shop/", include("ship.urls" , namespace="v1")),
     # ------------------------------------------------------------------------------
     # ? authentication
+    # this url is used to generate email content
     path("api/rest-auth/", include("dj_rest_auth.urls")),
     path("api/rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     path(

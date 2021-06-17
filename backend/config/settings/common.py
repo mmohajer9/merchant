@@ -64,11 +64,11 @@ INSTALLED_APPS = [
     # ? authentication
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "rest_framework_simplejwt.token_blacklist",
     # ? social authentication
-    "allauth.socialaccount",
     "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.twitter",
 ]
