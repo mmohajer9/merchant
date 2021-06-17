@@ -15,6 +15,7 @@ from .serializers import (
 )
 from .generics import EnhancedModelViewSet
 from .permissions import IsOwner, IsNotSeller, Forbidden
+from .filters import SellerFilter
 
 # Create your views here.
 
@@ -42,11 +43,15 @@ class CityViewSet(viewsets.ReadOnlyModelViewSet):
 
 class SellerViewSet(EnhancedModelViewSet):
 
-    queryset = Seller.objects.all().order_by("id")
+    queryset = Seller.objects.all()
 
     # default serializer and permission classes
     serializer_class = SellerSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
+    filterset_class = SellerFilter
+    search_fields = ["title", "business_phone", "description", "user__username"]
+    ordering_fields = '__all__'
+    ordering = ["id"]
 
     # override per action
     action_serializers = {
