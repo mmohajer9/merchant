@@ -50,7 +50,7 @@ class SellerViewSet(EnhancedModelViewSet):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
     filterset_class = SellerFilter
     search_fields = ["title", "business_phone", "description", "user__username"]
-    ordering_fields = '__all__'
+    ordering_fields = "__all__"
     ordering = ["id"]
 
     # override per action

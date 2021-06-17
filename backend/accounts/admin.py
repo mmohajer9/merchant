@@ -19,6 +19,7 @@ class MyUserAdmin(UserAdmin):
         "username",
         "nat_code",
         "email",
+        "is_active",
         "first_name",
         "last_name",
         "thumbnail",

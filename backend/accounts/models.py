@@ -11,53 +11,7 @@ from imagekit.processors import ResizeToFill
 
 # Create your models here.
 
-
-class Country(models.Model):
-    name = models.CharField(_("Country Name"), max_length=50, unique=True)
-    slug = AutoSlugField(populate_from="name", unique=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        # db_table = ''
-        # managed = True
-        verbose_name = "Country"
-        verbose_name_plural = "Countries"
-
-
-class Province(models.Model):
-    related_country = models.ForeignKey(
-        "Country", verbose_name=_("Country"), on_delete=models.CASCADE
-    )
-    name = models.CharField(_("Province Name"), max_length=50)
-    slug = AutoSlugField(populate_from="name", null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        # db_table = ''
-        # managed = True
-        verbose_name = "Province"
-        verbose_name_plural = "Provinces"
-
-
-class City(models.Model):
-    related_province = models.ForeignKey(
-        "Province", verbose_name=_("Province"), on_delete=models.CASCADE
-    )
-    name = models.CharField(_("City Name"), max_length=50)
-    slug = AutoSlugField(populate_from="name", null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        # db_table = ''
-        # managed = True
-        verbose_name = "City"
-        verbose_name_plural = "Cities"
+# --------------------------------------------------------------------------------
 
 
 def profile_pic_upload_to(self, filename):
@@ -116,9 +70,61 @@ class User(AbstractUser):
     profile_pic_thumbnail.short_description = _("Thumbnail")
 
 
+UserModel = get_user_model()
+# --------------------------------------------------------------------------------
+
+
+class Country(models.Model):
+    name = models.CharField(_("Country Name"), max_length=50, unique=True)
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Country"
+        verbose_name_plural = "Countries"
+
+
+class Province(models.Model):
+    related_country = models.ForeignKey(
+        "Country", verbose_name=_("Country"), on_delete=models.CASCADE
+    )
+    name = models.CharField(_("Province Name"), max_length=50)
+    slug = AutoSlugField(populate_from="name", null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Province"
+        verbose_name_plural = "Provinces"
+
+
+class City(models.Model):
+    related_province = models.ForeignKey(
+        "Province", verbose_name=_("Province"), on_delete=models.CASCADE
+    )
+    name = models.CharField(_("City Name"), max_length=50)
+    slug = AutoSlugField(populate_from="name", null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "City"
+        verbose_name_plural = "Cities"
+
+
 class Seller(models.Model):
     user = models.OneToOneField(
-        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+        UserModel, on_delete=models.CASCADE, verbose_name=_("User")
     )
     title = models.CharField(max_length=500, verbose_name=_("Title"))
     slug = AutoSlugField(populate_from="title", null=True)
@@ -149,7 +155,7 @@ class Seller(models.Model):
 
 class Address(models.Model):
     user = models.ForeignKey(
-        get_user_model(), verbose_name=_("User"), on_delete=models.CASCADE
+        UserModel, verbose_name=_("User"), on_delete=models.CASCADE
     )
     city = models.ForeignKey("City", verbose_name=_("City"), on_delete=models.CASCADE)
 

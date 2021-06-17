@@ -9,6 +9,10 @@ from imagekit.models.fields import ImageSpecField
 from pilkit.processors.resize import ResizeToFill
 
 # Create your models here.
+
+UserModel = get_user_model()
+
+
 class Category(models.Model):
     name = models.CharField(max_length=500, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from="name", unique=True, null=True)
@@ -207,7 +211,6 @@ class Product(models.Model):
 
     final_price.short_description = _("Final Price")
 
-    
     def __str__(self):
         return self.name
 
@@ -220,7 +223,7 @@ class Product(models.Model):
 
 class CartItem(models.Model):
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+        UserModel, on_delete=models.CASCADE, verbose_name=_("User")
     )
     product = models.ForeignKey(
         "Product", on_delete=models.CASCADE, verbose_name=_("Product")
@@ -251,7 +254,7 @@ class Order(models.Model):
     ]
 
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+        UserModel, on_delete=models.CASCADE, verbose_name=_("User")
     )
     status = models.CharField(
         max_length=100,
@@ -306,7 +309,7 @@ class OrderItem(models.Model):
 
 class Bookmark(models.Model):
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, verbose_name=_("User")
+        UserModel, on_delete=models.CASCADE, verbose_name=_("User")
     )
     description = models.CharField(
         max_length=500, blank=True, null=True, verbose_name=_("Description")

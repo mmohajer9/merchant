@@ -1,11 +1,67 @@
 from rest_framework import serializers
-from .models import Country, Province, City, Seller, Address
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from drf_extra_fields.fields import HybridImageField
+
+from .models import Country, Province, City, Seller, Address
+
+UserModel = get_user_model()
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    """
+    User model w/o password
+    """
+
+    # @staticmethod
+    # def validate_username(username):
+    #     if "allauth.account" not in settings.INSTALLED_APPS:
+    #         # We don't need to call the all-auth
+    #         # username validator unless its installed
+    #         return username
+
+    #     from allauth.account.adapter import get_adapter
+
+    #     username = get_adapter().clean_username(username)
+    #     return username
+
+    profile_pic = HybridImageField(required=False)
+
+    class Meta:
+        extra_fields = []
+
+        if hasattr(UserModel, "USERNAME_FIELD"):
+            extra_fields.append(UserModel.USERNAME_FIELD)
+        if hasattr(UserModel, "EMAIL_FIELD"):
+            extra_fields.append(UserModel.EMAIL_FIELD)
+        if hasattr(UserModel, "first_name"):
+            extra_fields.append("first_name")
+        if hasattr(UserModel, "last_name"):
+            extra_fields.append("last_name")
+
+        model = UserModel
+        fields = [
+            "pk",
+            "id",
+            *extra_fields,
+            "is_active",
+            "nat_code",
+            "mobile_phone",
+            "telephone",
+            "birth_date",
+            "profile_pic",
+            "gender",
+            "date_joined",
+            "created_at",
+            "updated_at",
+        ]
+        # fields = ("pk", *extra_fields)
+        read_only_fields = ("is_active", "date_joined")
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = UserModel
         fields = (
             "id",
             "last_login",

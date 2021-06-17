@@ -49,7 +49,7 @@ urlpatterns = [
     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
     # ------------------------------------------------------------------------------
     # ? local apps
-    path("api/v1/accounts/", include("accounts.urls" , namespace="v1")),
+    path("api/v1/accounts/", include("accounts.urls", namespace="v1")),
     # path("api/shop/", include("ship.urls" , namespace="v1")),
     # ------------------------------------------------------------------------------
     # ? authentication
@@ -63,17 +63,19 @@ urlpatterns = [
     # ------------------------------------------------------------------------------
     # ? api doc
     url(
-        r"^doc(?P<format>\.json|\.yaml)$",
+        r"^api/doc(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),
         name="schema-json",
     ),
     url(
-        r"^doc/$",
+        r"^api/doc/$",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
     url(
-        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+        r"^api/redoc/$",
+        schema_view.with_ui("redoc", cache_timeout=0),
+        name="schema-redoc",
     ),
     # ------------------------------------------------------------------------------
 ]
