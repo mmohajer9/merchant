@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-transition": "^2.1.0",
     "react-scripts": "4.0.3",
+    "react-toastify": "^7.0.4",
     "redux": "^4.1.0",
     "source-map-explorer": "^2.5.2",
     "validator": "^13.6.0",

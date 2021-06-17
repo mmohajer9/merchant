@@ -8,14 +8,9 @@ import {
   TextField,
   FormControl,
   makeStyles,
-  Snackbar,
   CircularProgress,
 } from '@material-ui/core';
 
-import MuiAlert from '@material-ui/lab/Alert';
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {

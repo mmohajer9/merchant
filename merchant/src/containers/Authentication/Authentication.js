@@ -1,25 +1,23 @@
-import {
-  Box,
-  Container,
-  Grid,
-  useTheme,
-  makeStyles,
-  Typography,
-  Card,
-  CardActions,
-  Button,
-  FormHelperText,
-} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import { useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Fab from '@material-ui/core/Fab';
 import { Link } from 'react-router-dom';
 
 import CartSVG from '../../assets/login/cart.svg';
 import routes from '../../common/routes';
-import Login from './Login';
+import Login from '../../components/Login/Login';
 import React from 'react';
-import Register from './Register';
-import ForgotPassword from './ForgotPassword';
+import Register from '../../components/Register/Register';
+import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
 
 const useStyles = makeStyles((theme) => ({
   cartPic: {
@@ -62,6 +60,7 @@ const Authentication = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [mode, setMode] = React.useState('login');
+
   const switchTo = (nextMode) => () => {
     setMode(nextMode);
   };
