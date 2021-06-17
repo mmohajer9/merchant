@@ -2,9 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-
-// eslint-disable-next-line no-unused-vars
-import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
+import { useSelector } from 'react-redux';
 import Header from '../Header/Header';
 import Homepage from '../../containers/Homepage/Homepage';
 import routes from '../../common/routes';
@@ -12,10 +10,22 @@ import Cart from '../../containers/Cart/Cart';
 import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
+import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
 
 const App = () => {
+  const setting = useSelector((state) => state.setting);
+
+  const theme =
+    setting.theme === 'default'
+      ? defaultTheme
+      : setting.theme === 'dark'
+      ? darkTheme
+      : setting.theme === 'light'
+      ? lightTheme
+      : null;
+
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Switch>

@@ -51,17 +51,7 @@ let darkTheme = createMuiTheme({
   },
 });
 
-let defaultTheme = createMuiTheme({
-  palette: {
-    common: {
-      white: merchantWhite,
-      red: merchantRed,
-      lightGrey: merchantLightGrey,
-      grey: merchantGrey,
-      hovered: merchantHoveredItem,
-    },
-  },
-});
+let defaultTheme = createMuiTheme();
 
 lightTheme = responsiveFontSizes(lightTheme);
 darkTheme = responsiveFontSizes(darkTheme);
