@@ -100,8 +100,9 @@ class Coupon(models.Model):
         max_length=500, blank=True, null=True, verbose_name=_("Description")
     )
     code = models.CharField(_("Coupon Code"), max_length=50, unique=True)
-    percent = models.DecimalField(
-        _("Coupon Percentage"), max_digits=4, decimal_places=2
+    percent = models.IntegerField(
+        _("Coupon Percentage"),
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
 
     is_active = models.BooleanField(_("Active"), default=False)

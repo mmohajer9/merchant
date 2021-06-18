@@ -37,6 +37,8 @@ class User(AbstractUser):
     )
     birth_date = models.DateField(_("Date of Birth"), blank=True, null=True)
     email = models.EmailField(_("Email Address"), blank=True, null=True, unique=True)
+    # is_email_verified = models.BooleanField(default=False)
+    # is_mobile_phone_verified = models.BooleanField(default=False)
     profile_pic = models.ImageField(
         upload_to=profile_pic_upload_to, blank=True, verbose_name=_("Profile Picture")
     )
@@ -45,6 +47,10 @@ class User(AbstractUser):
         choices=GENDER_CHOICES,
         default="ns",
         verbose_name=_("Gender"),
+    )
+
+    balance = models.DecimalField(
+        _("Balance"), max_digits=10, decimal_places=2, default=0
     )
 
     created_at = models.DateTimeField(

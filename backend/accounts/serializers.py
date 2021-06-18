@@ -6,8 +6,9 @@ from drf_extra_fields.fields import HybridImageField
 
 from dj_rest_auth.serializers import PasswordResetConfirmSerializer
 
-from allauth.account.utils import url_str_to_user_pk
-from allauth.account.forms import default_token_generator
+# from allauth.account.utils import url_str_to_user_pk
+# from allauth.account.forms import default_token_generator
+from allauth.account.admin import EmailAddress
 
 from .models import Country, Province, City, Seller, Address
 
@@ -60,6 +61,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     #     return username
 
     profile_pic = HybridImageField(required=False)
+    is_email_verified = serializers.SerializerMethodField()
 
     class Meta:
         extra_fields = []
@@ -88,9 +90,17 @@ class UserDetailsSerializer(serializers.ModelSerializer):
             "date_joined",
             "created_at",
             "updated_at",
+            "balance",
+            "is_email_verified",
         ]
         # fields = ("pk", *extra_fields)
-        read_only_fields = ("is_active", "date_joined")
+        read_only_fields = ("is_active", "date_joined", "balance")
+
+    def get_is_email_verified(self, obj):
+        try:
+            return obj.emailaddress_set.first().verified
+        except:
+            return False
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -27,6 +27,7 @@ class MyUserAdmin(UserAdmin):
         "is_staff",
         "birth_date",
         "gender",
+        "balance",
     )
 
 
@@ -41,6 +42,7 @@ MyUserAdmin.fieldsets += (
                 "telephone",
                 "profile_pic",
                 "gender",
+                "balance"
             )
         },
     ),
