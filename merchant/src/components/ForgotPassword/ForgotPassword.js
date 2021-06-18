@@ -10,7 +10,9 @@ import {
   makeStyles,
   CircularProgress,
 } from '@material-ui/core';
-
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import forgotPasswordAction from '../../store/auth/forgotpassword';
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {
@@ -35,14 +37,16 @@ const validationSchema = yup.object({
 
 const ForgotPassword = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {
       email: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      await dispatch(forgotPasswordAction({ values, history }));
     },
   });
 
