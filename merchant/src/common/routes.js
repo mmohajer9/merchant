@@ -8,7 +8,7 @@ const routes = {
 
   api: {
     login: {
-      path: '/api/v1/accounts/rest-auth/login/',
+      path: '/api/rest-auth/login/',
       payload: {
         username: 'string',
         email: 'user@example.com',
@@ -16,10 +16,10 @@ const routes = {
       },
     },
     logout: {
-      path: '/api/v1/accounts/rest-auth/logout/',
+      path: '/api/rest-auth/logout/',
     },
     changePassword: {
-      path: '/api/v1/accounts/rest-auth/password/change/',
+      path: '/api/rest-auth/password/change/',
       payload: {
         old_password: 'string',
         new_password1: 'string',
@@ -27,13 +27,13 @@ const routes = {
       },
     },
     resetPassword: {
-      path: '/api/v1/accounts/rest-auth/password/reset/',
+      path: '/api/rest-auth/password/reset/',
       payload: {
         email: 'user@example.com',
       },
     },
     resetPasswordConfirm: {
-      path: '/api/v1/accounts/rest-auth/password/reset/confirm/',
+      path: '/api/rest-auth/password/reset/confirm/',
       payload: {
         new_password1: 'string',
         new_password2: 'string',
@@ -42,7 +42,7 @@ const routes = {
       },
     },
     registration: {
-      path: '/api/v1/accounts/rest-auth/registration/',
+      path: '/api/rest-auth/registration/',
       payload: {
         username: 'string',
         email: 'user@example.com',
@@ -51,25 +51,39 @@ const routes = {
       },
     },
     registrationVerifyEmail: {
-      path: '/api/v1/accounts/rest-auth/registration/verify-email/',
+      path: '/api/rest-auth/registration/verify-email/',
       payload: {
         key: 'string',
       },
     },
     tokenRefresh: {
-      path: '/api/v1/accounts/rest-auth/token/refresh/',
+      path: '/api/rest-auth/token/refresh/',
       payload: {
         refresh: 'string',
       },
     },
     tokenVerify: {
-      path: '/api/v1/accounts/rest-auth/token/verify/',
+      path: '/api/rest-auth/token/verify/',
       payload: {
         token: 'string',
       },
     },
     userDetail: {
-      path: '/api/v1/accounts/rest-auth/user/',
+      path: '/api/rest-auth/user/',
+    },
+    userUpdate: {
+      path: '/api/rest-auth/user/',
+      payload: {
+        username: 'string',
+        email: 'user@example.com',
+        first_name: 'string',
+        last_name: 'string',
+        nat_code: 'string',
+        mobile_phone: 'string',
+        telephone: 'string',
+        birth_date: '2019-08-24',
+        gender: 'male',
+      },
     },
   },
 };

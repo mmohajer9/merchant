@@ -3,30 +3,32 @@ import routes from '../../common/routes';
 import axiosInstance from '../../common/axios';
 
 import { notificationActions } from '../notification';
+import { authActions } from '.';
 
-export const loginAction = (data) => {
+export const loginAction = ({ values, history }) => {
   return async (dispatch) => {
-    const isEmail = validator.isEmail(data.usernameOrEmail);
+    const isEmail = validator.isEmail(values.usernameOrEmail);
     const path = routes.api.login.path;
     const payload = routes.api.login.payload;
     if (isEmail) {
       payload.username = '';
-      payload.email = data.usernameOrEmail;
-      payload.password = data.password;
+      payload.email = values.usernameOrEmail;
+      payload.password = values.password;
     } else {
       payload.email = '';
-      payload.username = data.usernameOrEmail;
-      payload.password = data.password;
+      payload.username = values.usernameOrEmail;
+      payload.password = values.password;
     }
     try {
       const { data } = await axiosInstance.post(path, payload);
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      dispatch(authActions.setUserInfo(data));
       dispatch(
         notificationActions.open({
           type: 'success',
           msg: 'You have logged in successfully',
         })
       );
+      setTimeout(() => history.push(routes.profile), 2000);
     } catch (error) {
       dispatch(
         notificationActions.open({
