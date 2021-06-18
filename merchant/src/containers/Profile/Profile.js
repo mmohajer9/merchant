@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
-import {
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  Collapse,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  makeStyles,
-  Typography,
-  Divider,
-  Button,
-} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Collapse from '@material-ui/core/Collapse';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import makeStyles from '@material-ui/styles/makeStyles';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import AccountCircleIconOutlined from '@material-ui/icons/AccountCircleOutlined';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import AccountBalanceWalletOutlinedIcon from '@material-ui/icons/AccountBalanceWalletOutlined';
@@ -28,6 +26,11 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import routes from '../../common/routes';
+import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
+import { authActions } from '../../store/auth';
 
 const useStyles = makeStyles((theme) => ({
   nested: {
@@ -63,10 +66,18 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
   const classes = useStyles();
   const [profileOptionsOpen, setProfileOptionsOpen] = React.useState(true);
+  const auth = useSelector((state) => state.auth);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   return () => {};
-  // }, []);
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      history.push(routes.authentication);
+    }
+
+    dispatch(getUserRemoteInfo());
+    dispatch(authActions.getUserLocalInfo());
+  }, [history, dispatch, auth.isAuthenticated]);
 
   return (
     <Box mt={3} mb={5}>
