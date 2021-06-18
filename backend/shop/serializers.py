@@ -18,3 +18,22 @@ from .models import (
 )
 
 UserModel = get_user_model()
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = (
+            "id",
+            "name",
+            "slug",
+            "description",
+            "image",
+            "price",
+            "quantity",
+            "created_at",
+            "updated_at",
+            "subcategory",
+            "discount",
+            "seller_id",
+        )
