@@ -14,7 +14,7 @@ export const fetchProductsAction = ({
         params: { limit, offset },
       });
       await dispatch(
-        homeActions.appendCarouselItems({
+        homeActions.setCarouselItems({
           results: data.results,
           next: data.next,
           previous: data.previous,

@@ -7,39 +7,63 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
+import { Container } from '@material-ui/core';
 
-// import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 // Install modules
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-// const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  swiperSlide: {},
+}));
 
 const Carousel = ({ items = [] }) => {
-  // const classes = useStyles();
+  const classes = useStyles();
 
   const isEmpty = !items.length;
 
   return (
     <>
       {isEmpty ? null : (
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={4}
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-          navigation
-          centeredSlides
-          centeredSlidesBounds
-          // onSlideChange={() => console.log('slide change')}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // pagination={true}
-        >
-          {items.map((item, index) => (
-            <SwiperSlide key={index}>{item}</SwiperSlide>
-          ))}
-          ...
-        </Swiper>
+        <Container maxWidth="xl">
+          <Swiper
+            spaceBetween={30}
+            slidesPerView={1}
+            breakpoints={{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 30,
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              // when window width is >= 960
+              960: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+              },
+            }}
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            navigation
+            centeredSlides
+            centeredSlidesBounds
+            // onSlideChange={() => console.log('slide change')}
+            // onSwiper={(swiper) => console.log(swiper)}
+            // pagination={true}
+          >
+            {items.map((item, index) => (
+              <SwiperSlide className={classes.swiperSlide} key={index}>
+                {item}
+              </SwiperSlide>
+            ))}
+            ...
+          </Swiper>
+        </Container>
       )}
     </>
   );

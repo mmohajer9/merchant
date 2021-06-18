@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 import fetchProducts from '../../store/home/fetchProducts';
 
 import { Box } from '@material-ui/core';
 import Carousel from '../../components/Carousel/Carousel';
+import ProductCard from '../../components/Product/ProductCard';
 
 const Homepage = (props) => {
   const dispatch = useDispatch();
+  const home = useSelector((state) => state.home);
+
+  const carouselItems = home.carousel.items.map((item, index) => (
+    <ProductCard key={index} item={item} />
+  ));
 
   useEffect(() => {
     dispatch(getUserRemoteInfo());
@@ -19,7 +25,7 @@ const Homepage = (props) => {
 
   return (
     <Box>
-      <Carousel />
+      <Carousel items={carouselItems} />
     </Box>
   );
 };
