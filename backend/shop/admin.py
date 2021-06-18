@@ -13,6 +13,7 @@ from .models import (
     Order,
     OrderItem,
     Bookmark,
+    Subcategory,
 )
 
 # Register your models here.
@@ -21,6 +22,14 @@ from .models import (
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "created_at", "updated_at")
+    # list_filter = ["user", "title", "business_phone"]
+    # search_fields = ('user__username','postal_code__startswith')
+    # prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Subcategory)
+class SubcategoryAdmin(admin.ModelAdmin):
+    list_display = ("category", "name", "created_at", "updated_at")
     # list_filter = ["user", "title", "business_phone"]
     # search_fields = ('user__username','postal_code__startswith')
     # prepopulated_fields = {'slug': ('title',)}
@@ -71,6 +80,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     list_display = (
         "name",
+        "subcategory",
         "category",
         "price",
         "quantity",
@@ -82,6 +92,9 @@ class ProductAdmin(admin.ModelAdmin):
     # list_filter = ["user", "title", "business_phone"]
     # search_fields = ('user__username','postal_code__startswith')
     # prepopulated_fields = {'slug': ('title',)}
+
+    def category(self, obj):
+        return obj.subcategory.category
 
 
 @admin.register(CartItem)

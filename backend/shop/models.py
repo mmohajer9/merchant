@@ -36,6 +36,32 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
+class Subcategory(models.Model):
+    category = models.ForeignKey(
+        "Category", verbose_name=_("Subcategory"), on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=500, verbose_name=_("Name"))
+    slug = AutoSlugField(populate_from="name", unique=True, null=True)
+    description = models.CharField(
+        max_length=500, blank=True, null=True, verbose_name=_("Description")
+    )
+    created_at = models.DateTimeField(
+        _("Created at"), auto_now_add=True, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(
+        _("Updated at"), auto_now=True, blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # db_table = ''
+        # managed = True
+        verbose_name = "Subcategory"
+        verbose_name_plural = "Subcategories"
+
+
 class Discount(models.Model):
 
     name = models.CharField(max_length=500, verbose_name=_("Name"))
@@ -167,9 +193,9 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to=product_image_upload_to, blank=True, verbose_name=_("Product Image")
     )
-    category = models.ForeignKey(
-        "Category",
-        verbose_name=_("Category"),
+    subcategory = models.ForeignKey(
+        "Subcategory",
+        verbose_name=_("Subcategory"),
         on_delete=models.CASCADE,
         blank=True,
         null=True,
@@ -199,15 +225,19 @@ class Product(models.Model):
     )
     image_thumbnail.short_description = _("Thumbnail")
 
-    def final_price(self):
+    # is_available = models.BooleanField(default=True)
+    def is_available(self):
+        return self.quantity > 0
 
+    is_available.short_description = _("Is Available")
+    is_available.boolean = True
+
+    def final_price(self):
         price = self.price
         discount = (
             self.discount.percent if (self.discount and self.discount.is_valid) else 0
         )
-
         final = price if not discount else (price * (100 - discount)) / 100
-
         return final
 
     final_price.short_description = _("Final Price")
