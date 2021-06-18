@@ -4,6 +4,7 @@ from rest_framework import permissions
 # from rest_framework.response import Response
 # from django.shortcuts import get_object_or_404
 
+from .pagination import CustomLimitOffsetPagination
 from .models import Country, Province, City, Seller, Address
 from .serializers import (
     CountrySerializer,
@@ -45,6 +46,7 @@ class SellerViewSet(EnhancedModelViewSet):
 
     queryset = Seller.objects.all()
 
+    pagination_class = CustomLimitOffsetPagination
     # default serializer and permission classes
     serializer_class = SellerSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
