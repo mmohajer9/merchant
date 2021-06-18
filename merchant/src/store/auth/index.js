@@ -36,7 +36,9 @@ const authSlice = createSlice({
     },
     logout(currentState) {
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('token');
       currentState.userInfo = {};
+      currentState.token = {};
       currentState.isAuthenticated = false;
     },
     getUserLocalInfo(currentState) {

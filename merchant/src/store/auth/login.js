@@ -30,7 +30,7 @@ export const loginAction = ({ values, history }) => {
         pauseOnHover: true,
         draggable: true,
       });
-      setTimeout(() => history.push(routes.profile), 1000);
+      setTimeout(() => history.push(routes.profile), 3000);
     } catch (error) {
       const errorMessage =
         error.response.data.non_field_errors[0] ||

@@ -25,6 +25,7 @@ import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
+import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -70,6 +71,10 @@ const Profile = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
+
   useEffect(() => {
     if (!auth.isAuthenticated) {
       history.push(routes.authentication);
@@ -114,8 +119,8 @@ const Profile = (props) => {
                       <AccountCircleIconOutlined fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
-                      primary="Mohammad Mahdi Mohajer"
-                      secondary="09115269909"
+                      primary={`${auth.userInfo?.first_name} ${auth.userInfo?.last_name}`}
+                      secondary={auth.userInfo?.mobile_phone}
                     />
                     {profileOptionsOpen ? <ExpandLess /> : <ExpandMore />}
                   </ListItem>
@@ -133,7 +138,9 @@ const Profile = (props) => {
                         <ListItemIcon className={classes.listItemIcon}>
                           <AccountBalanceWalletOutlinedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Wallet Balance : 5000$" />
+                        <ListItemText
+                          primary={`Wallet Balance : ${auth.userInfo?.balance}$`}
+                        />
                       </ListItem>
                     </List>
                   </Collapse>
@@ -180,7 +187,11 @@ const Profile = (props) => {
               </CardContent>
               <Divider />
               <CardActions>
-                <ListItem className={classes.logout} button>
+                <ListItem
+                  onClick={handleLogout}
+                  className={classes.logout}
+                  button
+                >
                   <ListItemIcon>
                     <ExitToAppOutlinedIcon color="secondary" fontSize="large" />
                   </ListItemIcon>
@@ -206,7 +217,7 @@ const Profile = (props) => {
                         Full Name
                       </Typography>
                       <Typography color="textPrimary" variant="h6" gutterBottom>
-                        Mohammad Mahdi Mohajer
+                        {`${auth.userInfo?.first_name} ${auth.userInfo?.last_name}`}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.personalInfoItem} xs={6}>
@@ -215,7 +226,7 @@ const Profile = (props) => {
                         variant="subtitle1"
                         gutterBottom
                       >
-                        Email
+                        E-Mail
                       </Typography>
                       <Typography
                         noWrap
@@ -223,7 +234,7 @@ const Profile = (props) => {
                         variant="h6"
                         gutterBottom
                       >
-                        mohajer@ec.iut.ac.ir
+                        {auth.userInfo?.email}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.personalInfoItem} xs={6}>
@@ -235,7 +246,7 @@ const Profile = (props) => {
                         Phone Number
                       </Typography>
                       <Typography color="textPrimary" variant="h6" gutterBottom>
-                        09115269909
+                        {auth.userInfo?.mobile_phone}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.personalInfoItem} xs={6}>
@@ -247,7 +258,7 @@ const Profile = (props) => {
                         National ID
                       </Typography>
                       <Typography color="textPrimary" variant="h6" gutterBottom>
-                        2110772859
+                        {auth.userInfo?.nat_code}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.personalInfoItem} xs={6}>
@@ -259,7 +270,11 @@ const Profile = (props) => {
                         Account Status
                       </Typography>
                       <Typography color="textPrimary" variant="h6" gutterBottom>
-                        Activated
+                        {auth.userInfo?.is_active ? (
+                          <VerifiedUserOutlinedIcon fontSize="large" />
+                        ) : (
+                          'Suspended'
+                        )}
                       </Typography>
                     </Grid>
                     <Grid item className={classes.personalInfoItem} xs={6}>
@@ -271,13 +286,22 @@ const Profile = (props) => {
                         Account Verified
                       </Typography>
                       <Typography color="textPrimary" variant="h6" gutterBottom>
-                        Verified
+                        {auth.userInfo?.is_email_verified ? (
+                          <VerifiedUserOutlinedIcon fontSize="large" />
+                        ) : (
+                          'Not yet'
+                        )}
                       </Typography>
                     </Grid>
                   </Grid>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                  <Button fullWidth variant="outlined" size="large">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                  >
                     Edit Personal Information
                   </Button>
                 </CardActions>

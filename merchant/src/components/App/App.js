@@ -20,6 +20,7 @@ import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const theme =
@@ -49,7 +50,9 @@ const App = () => {
             <Header />
             <Route exact path={routes.homepage} component={Homepage} />
             <Route exact path={routes.cart} component={Cart} />
-            <Route exact path={routes.profile} component={Profile} />
+            <Route exact path={routes.profile}>
+              {auth.isAuthenticated ? <Profile /> : null}
+            </Route>
             <Footer />
           </Route>
         </Switch>

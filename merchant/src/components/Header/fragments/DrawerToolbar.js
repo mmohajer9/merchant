@@ -15,6 +15,9 @@ import React, { useState } from "react";
 import MenuOutlinedIcon from "@material-ui/icons/MenuOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import routes from "../../../common/routes";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +71,15 @@ const DrawerToolbar = (props) => {
         <IconButton onClick={() => setOpenDrawer(!openDrawer)}>
           <MenuOutlinedIcon />
         </IconButton>
-        <Typography variant="h5">Merchant</Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          disableRipple
+          component={Link}
+          to={routes.homepage}
+        >
+          <Typography variant="h5">Merchant</Typography>
+        </Button>
         <IconButton>
           <HelpOutlineOutlinedIcon />
         </IconButton>
