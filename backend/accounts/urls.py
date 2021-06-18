@@ -13,7 +13,7 @@ router.register("cities", CityViewSet, basename="cities")
 
 # seller apis
 router.register("sellers", SellerViewSet, basename="sellers")
-router.register("addresses", AddressViewSet, basename="addresses")
 # address apis
+router.register("addresses", AddressViewSet, basename="addresses")
 
 urlpatterns = [path("", include(router.urls))]

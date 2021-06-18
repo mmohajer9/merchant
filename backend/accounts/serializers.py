@@ -221,6 +221,3 @@ class AddressSerializer(serializers.ModelSerializer):
             "province": obj.city.related_province.name,
             "city": obj.city.name,
         }
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
