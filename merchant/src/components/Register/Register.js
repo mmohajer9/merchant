@@ -7,19 +7,13 @@ import {
   Button,
   TextField,
   FormControl,
-  Snackbar,
   makeStyles,
   CircularProgress,
 } from '@material-ui/core';
 
-import axiosInstance from '../../common/axios';
-import routes from '../../common/routes';
-
-import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
-const Alert = (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-};
+import { useDispatch } from 'react-redux';
+import registerAction from '../../store/auth/register';
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {
@@ -43,23 +37,19 @@ const validationSchema = yup.object({
     .required('Email is required'),
   password: yup
     .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
+    .min(6, 'Password should be of minimum 6 characters length')
     .required('Password is required'),
   confirmPassword: yup
     .string('Confirm your password')
-    .min(8, 'Password should be of minimum 8 characters length')
+    .min(6, 'Password should be of minimum 6 characters length')
     .required('Password is required'),
 });
 
 const Register = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const [snackbarState, setSnackbarState] = React.useState({
-    open: false,
-    type: '',
-    msg: '',
-  });
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -69,46 +59,7 @@ const Register = (props) => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const path = routes.api.registration.path;
-      const payload = routes.api.registration.payload;
-      payload.username = values.username;
-      payload.password1 = values.password;
-      payload.password2 = values.confirmPassword;
-      payload.email = values.email;
-
-      console.log(payload)
-
-      try {
-        const { data } = await axiosInstance.post(path, payload);
-        console.log(data);
-        setSnackbarState({
-          open: true,
-          type: 'success',
-          msg: 'You have registered successfully',
-        });
-        setTimeout(() => {
-          setSnackbarState({
-            open: false,
-            type: 'success',
-          });
-          localStorage.setItem('userInfo', JSON.stringify(data));
-          history.push(routes.profile);
-        }, 1000);
-      } catch (error) {
-        setSnackbarState({
-          open: true,
-          type: 'error',
-          msg: 'Registration has been failed, try again',
-        });
-        setTimeout(
-          () =>
-            setSnackbarState({
-              open: false,
-              type: 'error',
-            }),
-          2000
-        );
-      }
+      await dispatch(registerAction({ values, history }));
     },
   });
 
@@ -187,14 +138,6 @@ const Register = (props) => {
           )}
         </Button>
       </CardActions>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={snackbarState.open}
-      >
-        {snackbarState.open ? (
-          <Alert severity={snackbarState.type}>{snackbarState.msg}</Alert>
-        ) : null}
-      </Snackbar>
     </form>
   );
 };

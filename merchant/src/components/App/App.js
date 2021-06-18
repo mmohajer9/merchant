@@ -3,6 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 import Header from '../Header/Header';
 import Homepage from '../../containers/Homepage/Homepage';
 import routes from '../../common/routes';
@@ -11,7 +15,6 @@ import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
-import Toast from '../../common/toast';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
@@ -43,7 +46,7 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-      <Toast />
+      <ToastContainer />
     </ThemeProvider>
   );
 };

@@ -1,8 +1,8 @@
 import validator from 'validator';
+import { toast } from 'react-toastify';
 import routes from '../../common/routes';
 import axiosInstance from '../../common/axios';
 
-import { notificationActions } from '../notification';
 import { authActions } from '.';
 
 export const loginAction = ({ values, history }) => {
@@ -22,20 +22,28 @@ export const loginAction = ({ values, history }) => {
     try {
       const { data } = await axiosInstance.post(path, payload);
       dispatch(authActions.setUserInfo(data));
-      dispatch(
-        notificationActions.open({
-          type: 'success',
-          msg: 'You have logged in successfully',
-        })
-      );
-      setTimeout(() => history.push(routes.profile), 2000);
+      toast.success('You have logged in Successfully', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      setTimeout(() => history.push(routes.profile), 1000);
     } catch (error) {
-      dispatch(
-        notificationActions.open({
-          type: 'error',
-          msg: 'You can not log in with these credentials',
-        })
-      );
+      const errorMessage =
+        error.response.data.non_field_errors[0] ||
+        'Unable to log in with provided credentials.';
+      toast.error(errorMessage, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 };
