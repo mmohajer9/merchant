@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import forgotPasswordAction from '../../store/auth/forgotpassword';
+import forgotPasswordAction from '../../store/auth/forgotPassword';
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {

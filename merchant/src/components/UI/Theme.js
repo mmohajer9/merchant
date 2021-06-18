@@ -57,6 +57,4 @@ lightTheme = responsiveFontSizes(lightTheme);
 darkTheme = responsiveFontSizes(darkTheme);
 defaultTheme = responsiveFontSizes(defaultTheme);
 
-// console.log(lightTheme);
-
 export { lightTheme, darkTheme, defaultTheme };

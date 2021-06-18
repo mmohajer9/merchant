@@ -15,7 +15,7 @@ export const registerAction = ({ values, history }) => {
 
     try {
       const { data } = await axiosInstance.post(path, payload);
-      dispatch(authActions.setUserInfo(data));
+      dispatch(authActions.setLoginInfo(data));
       toast.success('You have signed up Successfully', {
         position: 'top-right',
         autoClose: 3000,

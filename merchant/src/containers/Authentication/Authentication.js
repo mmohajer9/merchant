@@ -10,14 +10,15 @@ import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Fab from '@material-ui/core/Fab';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import CartSVG from '../../assets/login/cart.svg';
 import routes from '../../common/routes';
 import Login from '../../components/Login/Login';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Register from '../../components/Register/Register';
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   cartPic: {
@@ -60,6 +61,14 @@ const Authentication = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [mode, setMode] = React.useState('login');
+  const auth = useSelector((state) => state.auth);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      history.push(routes.profile);
+    }
+  }, [auth, history]);
 
   const switchTo = (nextMode) => () => {
     setMode(nextMode);

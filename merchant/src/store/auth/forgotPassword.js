@@ -19,8 +19,7 @@ export const forgotPasswordAction = ({ values, history }) => {
         draggable: true,
       });
     } catch (error) {
-      const errorMessages = error.response.data;
-      console.log(errorMessages);
+      // const errorMessages = error.response.data;
       toast.error('Operation failed, Try again', {
         position: 'top-right',
         autoClose: 3000,

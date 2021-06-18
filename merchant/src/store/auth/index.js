@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialAuthState = {
   isAuthenticated: false,
   userInfo: {},
+  token: {},
 };
 
 // we can mutate state directly in just this format not any where else!
@@ -11,19 +12,38 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     setUserInfo(currentState, { payload }) {
-      currentState.userInfo = payload;
+      currentState.userInfo = payload.user;
       currentState.isAuthenticated = true;
-      localStorage.setItem('userInfo', JSON.stringify(payload));
+      localStorage.setItem('userInfo', JSON.stringify(payload.user));
+    },
+    setTokenInfo(currentState, { payload }) {
+      currentState.token = {
+        access: payload.access_token,
+        refresh: payload.refresh_token,
+      };
+      currentState.isAuthenticated = true;
+      localStorage.setItem('token', JSON.stringify(currentState.token));
+    },
+    setLoginInfo(currentState, { payload }) {
+      currentState.userInfo = payload.user;
+      currentState.token = {
+        access: payload.access_token,
+        refresh: payload.refresh_token,
+      };
+      currentState.isAuthenticated = true;
+      localStorage.setItem('userInfo', JSON.stringify(payload.user));
+      localStorage.setItem('token', JSON.stringify(currentState.token));
     },
     logout(currentState) {
+      localStorage.removeItem('userInfo');
       currentState.userInfo = {};
       currentState.isAuthenticated = false;
-      localStorage.removeItem('userInfo');
     },
-    getUserInfo(currentState) {
+    getUserLocalInfo(currentState) {
       try {
-        currentState.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        currentState.isAuthenticated = true;
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        currentState.userInfo = userInfo ? userInfo : {};
+        currentState.isAuthenticated = userInfo ? true : false;
       } catch (error) {
         currentState.userInfo = {};
         currentState.isAuthenticated = false;

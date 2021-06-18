@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -55,14 +55,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
-  noPurchaseIcon : {
-    fontSize : theme.typography.fontSize * 7.25
-  }
+  noPurchaseIcon: {
+    fontSize: theme.typography.fontSize * 7.25,
+  },
 }));
 
 const Profile = (props) => {
   const classes = useStyles();
   const [profileOptionsOpen, setProfileOptionsOpen] = React.useState(true);
+
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
 
   return (
     <Box mt={3} mb={5}>
@@ -202,7 +206,12 @@ const Profile = (props) => {
                       >
                         Email
                       </Typography>
-                      <Typography noWrap color="textPrimary" variant="h6" gutterBottom>
+                      <Typography
+                        noWrap
+                        color="textPrimary"
+                        variant="h6"
+                        gutterBottom
+                      >
                         mohajer@ec.iut.ac.ir
                       </Typography>
                     </Grid>
@@ -275,7 +284,11 @@ const Profile = (props) => {
                       <ErrorOutlineOutlinedIcon fontSize="inherit" />
                     </Grid>
                     <Grid item className={classes.noPurchaseText}>
-                      <Typography align="center" color="textPrimary" gutterBottom>
+                      <Typography
+                        align="center"
+                        color="textPrimary"
+                        gutterBottom
+                      >
                         You Have No Any Recent Purchases
                       </Typography>
                     </Grid>

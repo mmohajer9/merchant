@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -15,9 +15,12 @@ import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
+import { authActions } from '../../store/auth';
+import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
+  const dispatch = useDispatch();
 
   const theme =
     setting.theme === 'default'
@@ -27,6 +30,11 @@ const App = () => {
       : setting.theme === 'light'
       ? lightTheme
       : null;
+
+  useEffect(() => {
+    dispatch(getUserRemoteInfo());
+    dispatch(authActions.getUserLocalInfo());
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
