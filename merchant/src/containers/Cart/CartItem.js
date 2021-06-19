@@ -31,19 +31,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CartItem() {
+const CartItem = ({ item }) => {
+  const { properties, count } = item;
+
   const classes = useStyles();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(count);
   const [increaseDisabled, setIncreaseDisabled] = useState(false);
   const [decreaseDisabled, setDecreaseDisabled] = useState(false);
+
+  const handleIncrease = (item) => (e) => {
+    setQuantity((prevState) => prevState + 1);
+  };
+  const handleDecrease = (item) => (e) => {
+    setQuantity((prevState) => prevState - 1);
+  };
 
   useEffect(() => {
     if (quantity <= 0) {
       setDecreaseDisabled(true);
+    } else if (quantity >= properties.quantity) {
+      setIncreaseDisabled(true);
     } else {
       setDecreaseDisabled(false);
+      setIncreaseDisabled(false);
     }
-  }, [quantity]);
+  }, [quantity, properties.quantity]);
 
   return (
     <Card elevation={5} className={classes.root}>
@@ -102,7 +114,7 @@ export default function CartItem() {
           >
             <Grid item>
               <Button
-                onClick={() => setQuantity((prevState) => prevState + 1)}
+                onClick={handleIncrease()}
                 variant="contained"
                 aria-label="remove"
                 size="large"
@@ -115,7 +127,7 @@ export default function CartItem() {
               </Button>
               {quantity <= 1 ? null : (
                 <Button
-                  onClick={() => setQuantity((prevState) => prevState - 1)}
+                  onClick={handleDecrease()}
                   variant="contained"
                   aria-label="remove"
                   size="large"
@@ -144,4 +156,6 @@ export default function CartItem() {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default CartItem;

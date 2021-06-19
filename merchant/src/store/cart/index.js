@@ -13,28 +13,48 @@ const cartSlice = createSlice({
   reducers: {
     getCartItems(currentState) {
       const cart = JSON.parse(localStorage.getItem('cart'));
-      currentState.items = cart ? cart : [];
+      currentState.items = cart ? cart.items : [];
     },
     addToCart(currentState, { payload }) {
       const item = _.find(currentState.items, (o) => {
-        return o.item.id === payload.item.id;
+        return o.properties.id === payload.item.id;
       });
-      if (item) {
+      if (item && item.count < item.properties.quantity) {
+        console.log(item.count, item.properties.quantity);
+        // updating its value
         item.count++;
+        item.properties = payload.item;
+        localStorage.setItem('cart', JSON.stringify(currentState));
+        toast.info(`Product has been added to Cart : ${payload.item.name}`, {
+          position: 'top-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else if (item && item.count >= item.properties.quantity) {
+        toast.error(`Not Available in the stock : ${payload.item.name}`, {
+          position: 'top-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       } else {
-        const newItem = { item: payload.item, count: 1 };
+        const newItem = { properties: payload.item, count: 1 };
         currentState.items.push(newItem);
+        localStorage.setItem('cart', JSON.stringify(currentState));
+        toast.info(`Product has been added to Cart : ${payload.item.name}`, {
+          position: 'top-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
-
-      localStorage.setItem('cart', JSON.stringify(currentState));
-      toast.info(`Product has been added to Cart : ${payload.item.name}`, {
-        position: 'top-right',
-        autoClose: 8000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
     },
     removeCartItem(currentState, { payload }) {
       const id = payload.id;
