@@ -20,7 +20,6 @@ const cartSlice = createSlice({
         return o.properties.id === payload.item.id;
       });
       if (item && item.count < item.properties.quantity) {
-        console.log(item.count, item.properties.quantity);
         // updating its value
         item.count++;
         item.properties = payload.item;
@@ -56,12 +55,46 @@ const cartSlice = createSlice({
         });
       }
     },
-    removeCartItem(currentState, { payload }) {
-      const id = payload.id;
-      currentState.items = currentState.items.filter((item) => item.id !== id);
-      localStorage.setItem('cart', JSON.stringify(currentState));
+    subtractCartItem(currentState, { payload }) {
+      const item = _.find(currentState.items, (o) => {
+        return o.properties.id === payload.item.properties.id;
+      });
+      if (item && item.count > 1) {
+        // updating its value
+        item.count--;
+        item.properties = payload.item.properties;
+        localStorage.setItem('cart', JSON.stringify(currentState));
+        toast.dark(
+          `One Item of ${payload.item.properties.name} Has Been Removed From The Cart`,
+          {
+            position: 'top-right',
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        );
+      }
     },
-    updateCartItem(currentState, { payload }) {},
+    removeCartItem(currentState, { payload }) {
+      // eslint-disable-next-line no-unused-vars
+      const removedItems = _.remove(currentState.items, (o) => {
+        return o.properties.id === payload.item.properties.id;
+      });
+      localStorage.setItem('cart', JSON.stringify(currentState));
+      toast.dark(
+        `Item : ${payload.item.properties.name} Has Been Removed From The Cart`,
+        {
+          position: 'top-right',
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
+    },
   },
 });
 

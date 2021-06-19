@@ -10,6 +10,8 @@ import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 
 import ProductCartItem from './ProductCartItem';
 import { Button } from '@material-ui/core';
+import { cartActions } from '../../store/cart';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const CartItem = ({ item }) => {
   const { properties, count } = item;
 
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [quantity, setQuantity] = useState(count);
   const [increaseDisabled, setIncreaseDisabled] = useState(false);
@@ -41,9 +44,15 @@ const CartItem = ({ item }) => {
 
   const handleIncrease = (item) => (e) => {
     setQuantity((prevState) => prevState + 1);
+    dispatch(cartActions.addToCart({ item }));
   };
   const handleDecrease = (item) => (e) => {
     setQuantity((prevState) => prevState - 1);
+    dispatch(cartActions.subtractCartItem({ item }));
+  };
+
+  const handleRemove = (item) => (e) => {
+    dispatch(cartActions.removeCartItem({ item }));
   };
 
   useEffect(() => {
@@ -145,6 +154,7 @@ const CartItem = ({ item }) => {
                 size="large"
                 className={classes.margin}
                 fullWidth
+                onClick={handleRemove(item)}
               >
                 Remove This Item
                 <CloseOutlinedIcon className={classes.extendedIcon} />

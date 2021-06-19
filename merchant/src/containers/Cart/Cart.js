@@ -21,8 +21,8 @@ export default function Cart() {
         >
           <Grid item container spacing={3} direction="column" xs={12} md={8}>
             {cart.items.map((cartItem, index) => (
-              <Grid item>
-                <CartItem key={index} item={cartItem} />
+              <Grid item key={index}>
+                <CartItem item={cartItem} />
               </Grid>
             ))}
           </Grid>
