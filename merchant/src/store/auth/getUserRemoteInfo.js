@@ -1,7 +1,8 @@
 // import { toast } from 'react-toastify';
 import routes from '../../common/routes';
-
 import { authActions } from '.';
+import getAxiosInstance from '../../common/axios';
+const axios = getAxiosInstance();
 
 export const getUserRemoteInfo = () => {
   return async (dispatch) => {

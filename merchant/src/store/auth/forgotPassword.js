@@ -1,6 +1,8 @@
 import routes from '../../common/routes';
 
 import { toast } from 'react-toastify';
+import getAxiosInstance from '../../common/axios';
+const axios = getAxiosInstance();
 
 export const forgotPasswordAction = ({ values, history }) => {
   return async (dispatch) => {

@@ -15,7 +15,7 @@ import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
-import { authActions } from '../../store/auth';
+// import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 
 const App = () => {
@@ -35,7 +35,6 @@ const App = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       await dispatch(getUserRemoteInfo());
-      await dispatch(authActions.getUserLocalInfo());
     };
 
     fetchUserInfo();

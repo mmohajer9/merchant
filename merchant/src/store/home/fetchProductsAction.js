@@ -1,5 +1,7 @@
 import routes from '../../common/routes';
 import { homeActions } from '.';
+import getAxiosInstance from '../../common/axios';
+const axios = getAxiosInstance();
 
 const fetchProductsAction = ({
   limit = undefined,

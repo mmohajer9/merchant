@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import routes from '../../common/routes';
 
 import { authActions } from '.';
+import getAxiosInstance from '../../common/axios';
+const axios = getAxiosInstance();
 
 export const loginAction = ({ values, history }) => {
   return async (dispatch) => {

@@ -2,8 +2,11 @@ import routes from '../../common/routes';
 
 import { authActions } from '.';
 import { toast } from 'react-toastify';
+import getAxiosInstance from '../../common/axios';
 
-export const registerAction = ({ values, history}) => {
+const axios = getAxiosInstance();
+
+export const registerAction = ({ values, history }) => {
   return async (dispatch) => {
     const path = routes.api.registration.path;
     const payload = routes.api.registration.payload;

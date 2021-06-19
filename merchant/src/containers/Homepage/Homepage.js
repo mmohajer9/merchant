@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { authActions } from '../../store/auth';
+// import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 import fetchProductsAction from '../../store/home/fetchProductsAction';
 
@@ -22,7 +22,6 @@ const Homepage = (props) => {
     };
     const fetchUserInfo = async () => {
       await dispatch(getUserRemoteInfo());
-      await dispatch(authActions.getUserLocalInfo());
     };
 
     fetchUserInfo();
