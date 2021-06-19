@@ -10,29 +10,30 @@ const useStyles = makeStyles({
     maxWidth: '100%',
   },
   media: {
-    height: 140,
+    height: 200,
   },
 });
 
-export default function ProductCartItem() {
+const ProductCartItem = ({ item }) => {
   const classes = useStyles();
 
   return (
     <Card elevation={5} className={classes.root}>
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="Contemplative Reptile"
+        image={item.image}
+        title={item.name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
-          Lizard
+          {item.name}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {item.description}
         </Typography>
       </CardContent>
     </Card>
   );
-}
+};
+
+export default ProductCartItem;

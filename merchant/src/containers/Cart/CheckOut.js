@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { green } from '@material-ui/core/colors';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -16,69 +17,82 @@ const useStyles = makeStyles({
   checkOutButton: {
     fontSize: '1.5rem',
     backgroundColor: green[500],
-    '&:hover' : {
+    '&:hover': {
       backgroundColor: green[500],
-    }
+    },
   },
 });
 
-export default function CheckOut() {
+export default function CheckOut({ items }) {
   const classes = useStyles();
+  const [totalAmount, setTotalAmount] = useState(0);
 
+  useEffect(() => {
+    const calculateCart = (items) => {
+      const reducer = (acc, item) => acc + item.properties.final_price;
+      const result = items.reduce(reducer, 0);
+      setTotalAmount(result);
+    };
+
+    calculateCart(items);
+  }, [items]);
   return (
     <Card elevation={5} className={classes.root}>
       <CardContent>
         <Grid container justify="space-between">
           <Grid item>
-            <Typography variant="h6" color="textPrimary" gutterBottom>
-              Total Payments Amount:
+            <Typography variant="h5" color="textPrimary" gutterBottom>
+              Total Payments Amount
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="h6" color="textPrimary" gutterBottom>
-              150$
+            <Typography variant="h5" color="textPrimary" gutterBottom>
+              {totalAmount} $
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <Divider />
       <CardContent>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Product1
-            </Typography>
+        <Box>
+          <Grid container justify="space-between">
+            <Grid item xs={8}>
+              <Typography variant="overline" color="textPrimary" gutterBottom>
+                Items
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant="overline" color="textPrimary" gutterBottom>
+                Price
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant="overline" color="textPrimary" gutterBottom>
+                Final Price
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              50$
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Product1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              50$
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Product1
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              50$
-            </Typography>
-          </Grid>
-        </Grid>
+          <Divider />
+          {items.map((item, index) => (
+            <Grid key={index} container justify="space-between">
+              <Grid item xs={8}>
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                  {item.count} x {item.properties.name}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                  {+item.properties.price * +item.count}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="h6" color="textSecondary" gutterBottom>
+                  {+item.properties.final_price * +item.count}
+                </Typography>
+              </Grid>
+            </Grid>
+          ))}
+        </Box>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button

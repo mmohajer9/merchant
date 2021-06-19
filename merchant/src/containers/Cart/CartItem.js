@@ -62,7 +62,7 @@ const CartItem = ({ item }) => {
       <CardContent>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12} md={12} lg={5}>
-            <ProductCartItem />
+            <ProductCartItem item={properties} />
           </Grid>
           <Grid
             item
@@ -77,20 +77,19 @@ const CartItem = ({ item }) => {
             <Typography
               className={classes.typography}
               gutterBottom
-              variant="h5"
+              variant="h4"
               component="h2"
             >
-              Final Price : 500 $
+              Final Price : {properties.final_price} $
             </Typography>
             <Typography
               className={classes.typography}
               gutterBottom
-              variant="body2"
+              variant="body1"
               color="textSecondary"
               component="p"
             >
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
+              Original Price : {properties.price}
             </Typography>
             <Typography
               className={classes.typography}
@@ -113,18 +112,6 @@ const CartItem = ({ item }) => {
             lg={3}
           >
             <Grid item>
-              <Button
-                onClick={handleIncrease()}
-                variant="contained"
-                aria-label="remove"
-                size="large"
-                className={classes.margin}
-                fullWidth
-                disabled={increaseDisabled}
-              >
-                Increase Quantity
-                <ExpandLessOutlinedIcon className={classes.extendedIcon} />
-              </Button>
               {quantity <= 1 ? null : (
                 <Button
                   onClick={handleDecrease()}
@@ -139,6 +126,18 @@ const CartItem = ({ item }) => {
                   <ExpandMoreOutlinedIcon className={classes.extendedIcon} />
                 </Button>
               )}
+              <Button
+                onClick={handleIncrease()}
+                variant="contained"
+                aria-label="remove"
+                size="large"
+                className={classes.margin}
+                fullWidth
+                disabled={increaseDisabled}
+              >
+                Increase Quantity
+                <ExpandLessOutlinedIcon className={classes.extendedIcon} />
+              </Button>
               <Button
                 variant="contained"
                 color="secondary"

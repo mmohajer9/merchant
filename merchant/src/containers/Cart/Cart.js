@@ -20,14 +20,14 @@ export default function Cart() {
           spacing={3}
         >
           <Grid item container spacing={3} direction="column" xs={12} md={8}>
-            {cart.items.map((cartItem , index) => (
+            {cart.items.map((cartItem, index) => (
               <Grid item>
                 <CartItem key={index} item={cartItem} />
               </Grid>
             ))}
           </Grid>
           <Grid item xs={12} md={4}>
-            <CheckOut />
+            <CheckOut items={cart.items} />
           </Grid>
         </Grid>
       </Container>

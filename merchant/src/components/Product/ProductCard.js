@@ -55,7 +55,6 @@ export default function ProductCard({ item }) {
           // to="/profile"
           className={classes.media}
           image={item.image}
-          title="Paella dish"
           classes={{
             root: classes.cardImage,
           }}
