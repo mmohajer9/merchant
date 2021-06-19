@@ -15,7 +15,7 @@ import Profile from '../../containers/Profile/Profile';
 import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
-// import { authActions } from '../../store/auth';
+import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 
 const App = () => {
@@ -33,11 +33,13 @@ const App = () => {
       : null;
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
+    const fetchAuthInfo = async () => {
+      await dispatch(authActions.getUserTokenInfo());
+      await dispatch(authActions.getUserLocalInfo());
       await dispatch(getUserRemoteInfo());
     };
 
-    fetchUserInfo();
+    fetchAuthInfo();
   }, [dispatch]);
 
   return (

@@ -3,7 +3,7 @@ import { homeActions } from '.';
 import getAxiosInstance from '../../common/axios';
 const axios = getAxiosInstance();
 
-const fetchProductsAction = ({
+const getProducts = ({
   limit = undefined,
   offset = undefined,
   history,
@@ -26,4 +26,4 @@ const fetchProductsAction = ({
   };
 };
 
-export default fetchProductsAction;
+export default getProducts;

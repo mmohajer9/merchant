@@ -30,7 +30,6 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import routes from '../../common/routes';
-import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 import { authActions } from '../../store/auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,12 +79,6 @@ const Profile = (props) => {
       history.push(routes.authentication);
     }
 
-    const fetchUserInfo = async () => {
-      await dispatch(getUserRemoteInfo());
-      await dispatch(authActions.getUserLocalInfo());
-    };
-
-    fetchUserInfo();
   }, [history, dispatch, auth.isAuthenticated]);
 
   return (

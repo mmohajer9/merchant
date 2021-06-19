@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { authActions } from '../../store/auth';
-import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
-import fetchProductsAction from '../../store/home/fetchProductsAction';
+import getProducts from '../../store/home/getProducts';
 
 import { Box } from '@material-ui/core';
 import Carousel from '../../components/Carousel/Carousel';
@@ -18,13 +17,8 @@ const Homepage = (props) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      await dispatch(fetchProductsAction({}));
+      await dispatch(getProducts({}));
     };
-    const fetchUserInfo = async () => {
-      await dispatch(getUserRemoteInfo());
-    };
-
-    fetchUserInfo();
     fetchProducts();
   }, [dispatch]);
 

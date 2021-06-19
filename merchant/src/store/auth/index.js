@@ -13,7 +13,6 @@ const authSlice = createSlice({
   reducers: {
     setUserInfo(currentState, { payload }) {
       currentState.userInfo = payload.user;
-      currentState.isAuthenticated = true;
       localStorage.setItem('userInfo', JSON.stringify(payload.user));
     },
     setTokenInfo(currentState, { payload }) {
@@ -45,7 +44,15 @@ const authSlice = createSlice({
       try {
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
         currentState.userInfo = userInfo ? userInfo : {};
-        currentState.isAuthenticated = userInfo ? true : false;
+      } catch (error) {
+        currentState.userInfo = {};
+      }
+    },
+    getUserTokenInfo(currentState) {
+      try {
+        const token = JSON.parse(localStorage.getItem('token'));
+        currentState.token = token ? token : {};
+        currentState.isAuthenticated = token ? true : false;
       } catch (error) {
         currentState.userInfo = {};
         currentState.isAuthenticated = false;
