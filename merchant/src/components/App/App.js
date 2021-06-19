@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,7 +48,11 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path={routes.authentication}>
-            <Authentication />
+            {auth.isAuthenticated ? (
+              <Redirect to={routes.profile} />
+            ) : (
+              <Authentication />
+            )}
           </Route>
           {/* SEP */}
           <Route>
@@ -56,7 +60,11 @@ const App = () => {
             <Route exact path={routes.homepage} component={Homepage} />
             <Route exact path={routes.cart} component={Cart} />
             <Route exact path={routes.profile}>
-              {auth.isAuthenticated ? <Profile /> : null}
+              {auth.isAuthenticated ? (
+                <Profile />
+              ) : (
+                <Redirect to={routes.authentication} />
+              )}
             </Route>
             <Footer />
           </Route>
