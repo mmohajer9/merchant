@@ -38,7 +38,7 @@ class Category(models.Model):
 
 class Subcategory(models.Model):
     category = models.ForeignKey(
-        "Category", verbose_name=_("Subcategory"), on_delete=models.CASCADE
+        "Category", verbose_name=_("Category"), on_delete=models.CASCADE
     )
     name = models.CharField(max_length=500, verbose_name=_("Name"))
     slug = AutoSlugField(populate_from="name", unique=True, null=True)
