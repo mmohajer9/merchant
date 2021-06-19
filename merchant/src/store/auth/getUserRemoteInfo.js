@@ -3,12 +3,12 @@ import routes from '../../common/routes';
 
 import { authActions } from '.';
 
-export const getUserRemoteInfo = ({ auth }) => {
+export const getUserRemoteInfo = () => {
   return async (dispatch) => {
     const path = routes.api.userDetail.path;
 
     try {
-      const { data } = await auth.axios.get(path);
+      const { data } = await axios.get(path);
       dispatch(authActions.setUserInfo({ user: data }));
     } catch (error) {}
   };

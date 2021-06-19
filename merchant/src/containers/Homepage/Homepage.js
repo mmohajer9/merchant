@@ -17,10 +17,16 @@ const Homepage = (props) => {
   ));
 
   useEffect(() => {
-    dispatch(getUserRemoteInfo());
-    dispatch(authActions.getUserLocalInfo());
+    const fetchProducts = async () => {
+      await dispatch(fetchProductsAction({}));
+    };
+    const fetchUserInfo = async () => {
+      await dispatch(getUserRemoteInfo());
+      await dispatch(authActions.getUserLocalInfo());
+    };
 
-    dispatch(fetchProductsAction({}));
+    fetchUserInfo();
+    fetchProducts();
   }, [dispatch]);
 
   return (

@@ -4,7 +4,7 @@ import routes from '../../common/routes';
 
 import { authActions } from '.';
 
-export const loginAction = ({ values, history, auth }) => {
+export const loginAction = ({ values, history }) => {
   return async (dispatch) => {
     const isEmail = validator.isEmail(values.usernameOrEmail);
     const path = routes.api.login.path;
@@ -19,7 +19,7 @@ export const loginAction = ({ values, history, auth }) => {
       payload.password = values.password;
     }
     try {
-      const { data } = await auth.axios.post(path, payload);
+      const { data } = await axios.post(path, payload);
       await dispatch(authActions.setLoginInfo(data));
       toast.success('You have logged in Successfully', {
         position: 'top-right',

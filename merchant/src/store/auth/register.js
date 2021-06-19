@@ -3,7 +3,7 @@ import routes from '../../common/routes';
 import { authActions } from '.';
 import { toast } from 'react-toastify';
 
-export const registerAction = ({ values, history , auth}) => {
+export const registerAction = ({ values, history}) => {
   return async (dispatch) => {
     const path = routes.api.registration.path;
     const payload = routes.api.registration.payload;
@@ -13,7 +13,7 @@ export const registerAction = ({ values, history , auth}) => {
     payload.email = values.email;
 
     try {
-      const { data } = await auth.axios.post(path, payload);
+      const { data } = await axios.post(path, payload);
       dispatch(authActions.setLoginInfo(data));
       toast.success('You have signed up Successfully', {
         position: 'top-right',

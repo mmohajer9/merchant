@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 const initialAuthState = {
   isAuthenticated: false,
   userInfo: {},
   token: {},
-  axios: axios.create({
-    baseURL: 'http://127.0.0.1:8000',
-  }),
 };
 
 // we can mutate state directly in just this format not any where else!
@@ -53,22 +49,6 @@ const authSlice = createSlice({
       } catch (error) {
         currentState.userInfo = {};
         currentState.isAuthenticated = false;
-      }
-    },
-    setAxiosInstance(currentState) {
-      if (currentState.isAuthenticated && currentState.token?.access) {
-        const headers = {
-          Authorization: `Bearer ${currentState.token.access}`,
-        };
-        const instance = axios.create({
-          baseURL: 'http://127.0.0.1:8000',
-          headers: headers,
-        });
-        currentState.axios = instance;
-      } else {
-        currentState.axios = axios.create({
-          baseURL: 'http://127.0.0.1:8000',
-        });
       }
     },
   },

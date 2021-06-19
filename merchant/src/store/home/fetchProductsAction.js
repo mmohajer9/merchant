@@ -5,12 +5,11 @@ const fetchProductsAction = ({
   limit = undefined,
   offset = undefined,
   history,
-  auth
 }) => {
   return async (dispatch) => {
     const path = routes.api.productList.path;
     try {
-      const { data } = await auth.axios.get(path, {
+      const { data } = await axios.get(path, {
         params: { limit, offset },
       });
       await dispatch(

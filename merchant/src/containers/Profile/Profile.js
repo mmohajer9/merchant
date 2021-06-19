@@ -80,8 +80,12 @@ const Profile = (props) => {
       history.push(routes.authentication);
     }
 
-    dispatch(getUserRemoteInfo());
-    dispatch(authActions.getUserLocalInfo());
+    const fetchUserInfo = async () => {
+      await dispatch(getUserRemoteInfo());
+      await dispatch(authActions.getUserLocalInfo());
+    };
+
+    fetchUserInfo();
   }, [history, dispatch, auth.isAuthenticated]);
 
   return (

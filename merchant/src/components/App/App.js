@@ -33,12 +33,12 @@ const App = () => {
       : null;
 
   useEffect(() => {
-    dispatch(authActions.setAxiosInstance());
-  }, [auth.isAuthenticated, dispatch]);
+    const fetchUserInfo = async () => {
+      await dispatch(getUserRemoteInfo());
+      await dispatch(authActions.getUserLocalInfo());
+    };
 
-  useEffect(() => {
-    dispatch(getUserRemoteInfo());
-    dispatch(authActions.getUserLocalInfo());
+    fetchUserInfo();
   }, [dispatch]);
 
   return (
