@@ -38,17 +38,14 @@ const Carousel = ({ items = [] }) => {
               // when window width is >= 320px
               320: {
                 slidesPerView: 1,
-                spaceBetween: 30,
               },
               // when window width is >= 480px
               480: {
                 slidesPerView: 3,
-                spaceBetween: 30,
               },
               // when window width is >= 960
               960: {
-                slidesPerView: 5,
-                spaceBetween: 30,
+                slidesPerView: 4,
               },
             }}
             pagination={{ clickable: true }}
