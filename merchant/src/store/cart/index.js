@@ -19,23 +19,23 @@ const cartSlice = createSlice({
       const item = _.find(currentState.items, (o) => {
         return o.properties.id === payload.item.id;
       });
-      if (item && item.count < item.properties.quantity) {
+      if (item && item.count < payload.item.quantity) {
         // updating its value
         item.count++;
         item.properties = payload.item;
         localStorage.setItem('cart', JSON.stringify(currentState));
         toast.info(`Product has been added to Cart : ${payload.item.name}`, {
           position: 'top-right',
-          autoClose: 4000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
         });
-      } else if (item && item.count >= item.properties.quantity) {
+      } else if (item && item.count >= payload.item.quantity) {
         toast.error(`Not Available in the stock : ${payload.item.name}`, {
           position: 'top-right',
-          autoClose: 4000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
         localStorage.setItem('cart', JSON.stringify(currentState));
         toast.info(`Product has been added to Cart : ${payload.item.name}`, {
           position: 'top-right',
-          autoClose: 4000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -57,18 +57,18 @@ const cartSlice = createSlice({
     },
     subtractCartItem(currentState, { payload }) {
       const item = _.find(currentState.items, (o) => {
-        return o.properties.id === payload.item.properties.id;
+        return o.properties.id === payload.item.id;
       });
       if (item && item.count > 1) {
         // updating its value
         item.count--;
-        item.properties = payload.item.properties;
+        item.properties = payload.item;
         localStorage.setItem('cart', JSON.stringify(currentState));
         toast.dark(
-          `One Item of ${payload.item.properties.name} Has Been Removed From The Cart`,
+          `One Item of ${payload.item.name} Has Been Removed From The Cart`,
           {
             position: 'top-right',
-            autoClose: 4000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -80,14 +80,14 @@ const cartSlice = createSlice({
     removeCartItem(currentState, { payload }) {
       // eslint-disable-next-line no-unused-vars
       const removedItems = _.remove(currentState.items, (o) => {
-        return o.properties.id === payload.item.properties.id;
+        return o.properties.id === payload.item.id;
       });
       localStorage.setItem('cart', JSON.stringify(currentState));
       toast.dark(
-        `Item : ${payload.item.properties.name} Has Been Removed From The Cart`,
+        `Item : ${payload.item.name} Has Been Removed From The Cart`,
         {
           position: 'top-right',
-          autoClose: 4000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

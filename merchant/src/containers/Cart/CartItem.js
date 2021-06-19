@@ -123,7 +123,7 @@ const CartItem = ({ item }) => {
             <Grid item>
               {quantity <= 1 ? null : (
                 <Button
-                  onClick={handleDecrease()}
+                  onClick={handleDecrease(properties)}
                   variant="contained"
                   aria-label="remove"
                   size="large"
@@ -136,7 +136,7 @@ const CartItem = ({ item }) => {
                 </Button>
               )}
               <Button
-                onClick={handleIncrease()}
+                onClick={handleIncrease(properties)}
                 variant="contained"
                 aria-label="remove"
                 size="large"
@@ -154,7 +154,7 @@ const CartItem = ({ item }) => {
                 size="large"
                 className={classes.margin}
                 fullWidth
-                onClick={handleRemove(item)}
+                onClick={handleRemove(properties)}
               >
                 Remove This Item
                 <CloseOutlinedIcon className={classes.extendedIcon} />
