@@ -85,11 +85,11 @@ const CartItem = ({ item }) => {
             <Typography
               className={classes.typography}
               gutterBottom
-              variant="body1"
+              variant="h5"
               color="textSecondary"
               component="p"
             >
-              Original Price : {properties.price}
+              Original Price : {properties.price} $
             </Typography>
             <Typography
               className={classes.typography}
