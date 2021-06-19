@@ -13,6 +13,8 @@ import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutli
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart';
+import Moment from 'react-moment';
+import 'moment-timezone';
 // import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +50,7 @@ export default function ProductCard({ item }) {
         <CardHeader
           title={item.name}
           titleTypographyProps={{ noWrap: true, variant: 'body1' }}
-          subheader="September 14, 2016"
+          subheader={<Moment format="YYYY/MM/DD" data={item.updated_at} />}
         />
         <CardMedia
           // component={Link}
@@ -73,7 +75,9 @@ export default function ProductCard({ item }) {
         >
           <FavoriteIcon />
         </IconButton>
-
+        <Typography noWrap variant="h6" color="textSecondary" component="p">
+          {item.final_price} $
+        </Typography>
         <Button size="large" variant="outlined" onClick={handleAddToCart(item)}>
           <AddShoppingCartOutlinedIcon className={classes.cartIcon} />
           <Typography>Add To Cart</Typography>
