@@ -15,7 +15,9 @@ import { makeStyles } from '@material-ui/core';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const useStyles = makeStyles((theme) => ({
-  swiperSlide: {},
+  swiperRoot: {
+    maxHeight : '100%'
+  },
 }));
 
 const Carousel = ({ items = [] }) => {
@@ -28,6 +30,8 @@ const Carousel = ({ items = [] }) => {
       {isEmpty ? null : (
         <Container maxWidth="xl">
           <Swiper
+            setWrapperSize
+            className={classes.swiperRoot}
             spaceBetween={30}
             slidesPerView={1}
             breakpoints={{
@@ -39,12 +43,12 @@ const Carousel = ({ items = [] }) => {
               // when window width is >= 480px
               480: {
                 slidesPerView: 3,
-                spaceBetween: 20,
+                spaceBetween: 30,
               },
               // when window width is >= 960
               960: {
                 slidesPerView: 5,
-                spaceBetween: 10,
+                spaceBetween: 30,
               },
             }}
             pagination={{ clickable: true }}
@@ -52,6 +56,7 @@ const Carousel = ({ items = [] }) => {
             navigation
             centeredSlides
             centeredSlidesBounds
+            autoHeight
             // onSlideChange={() => console.log('slide change')}
             // onSwiper={(swiper) => console.log(swiper)}
             // pagination={true}
