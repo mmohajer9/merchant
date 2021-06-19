@@ -234,7 +234,9 @@ class Product(models.Model):
     def final_price(self):
         price = self.price
         discount = (
-            self.discount.percent if (self.discount and self.discount.is_valid) else 0
+            self.discount.percent
+            if (self.discount and self.discount.is_valid and self.discount.is_active)
+            else 0
         )
         final = price if not discount else (price * (100 - discount)) / 100
         return final

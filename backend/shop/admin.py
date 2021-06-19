@@ -85,6 +85,9 @@ class ProductAdmin(admin.ModelAdmin):
         "price",
         "quantity",
         "discount",
+        "discount_percent",
+        "discount_active",
+        "discount_valid",
         "final_price",
         "thumbnail",
         "is_available",
@@ -96,6 +99,29 @@ class ProductAdmin(admin.ModelAdmin):
     def category(self, obj):
         return obj.subcategory.category
 
+    def discount_percent(self, obj):
+        try:
+            return obj.discount.percent
+        except:
+            return 0
+
+    
+
+    def discount_active(self, obj):
+        try:
+            return obj.discount.is_active
+        except:
+            return 0
+
+    discount_active.boolean = True
+
+    def discount_valid(self, obj):
+        try:
+            return obj.discount.is_valid()
+        except:
+            return 0
+
+    discount_valid.boolean = True
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
