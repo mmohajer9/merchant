@@ -2,11 +2,18 @@ from django.db.models.query_utils import Q
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from .serializers import ProductSerializer
+from .serializers import OrderItemSerializer, OrderSerializer, ProductSerializer
 from .pagination import CustomLimitOffsetPagination
 from .generics import EnhancedModelViewSet
-from .permissions import IsOwner, IsNotSeller, Forbidden, IsSeller, IsSellerOwner
-from .models import Product
+from .permissions import (
+    IsOrderOwner,
+    IsOwner,
+    IsNotSeller,
+    Forbidden,
+    IsSeller,
+    IsSellerOwner,
+)
+from .models import Order, OrderItem, Product
 
 # Create your views here.
 
@@ -45,3 +52,24 @@ class ProductViewSet(EnhancedModelViewSet):
         "partial_update": [permissions.IsAuthenticated, IsSellerOwner],
         "destroy": [permissions.IsAuthenticated, IsSellerOwner],
     }
+
+
+class OrderViewSet(EnhancedModelViewSet):
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user.id)
+
+    pagination_class = CustomLimitOffsetPagination
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OrderItemViewSet(EnhancedModelViewSet):
+    def get_queryset(self):
+        return OrderItem.objects.filter(order__user=self.request.user.id)
+
+    pagination_class = CustomLimitOffsetPagination
+    serializer_class = OrderItemSerializer
+    permission_classes = [permissions.IsAuthenticated, IsOrderOwner]

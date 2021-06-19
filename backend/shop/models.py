@@ -302,7 +302,7 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return self.user
+        return f"{self.id} - {str(self.user)}"
 
     class Meta:
         # db_table = ''
@@ -320,7 +320,7 @@ class OrderItem(models.Model):
     )
     quantity = models.IntegerField(default=1, verbose_name=_("Quantity"))
     price = models.DecimalField(
-        max_digits=30, decimal_places=2, verbose_name=_("Order")
+        max_digits=30, decimal_places=2, verbose_name=_("Price")
     )
     created_at = models.DateTimeField(
         _("Created at"), auto_now_add=True, blank=True, null=True
@@ -330,7 +330,7 @@ class OrderItem(models.Model):
     )
 
     def __str__(self):
-        return self.order
+        return f"{self.id}-{str(self.order)}"
 
     class Meta:
         # db_table = ''

@@ -36,6 +36,7 @@ django-sql-explorer==2.2
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.7.1
 drf-extra-fields==3.1.1
+drf-writable-nested==0.6.3
 drf-yasg==1.20.0
 entrypoints==0.3
 et-xmlfile==1.1.0

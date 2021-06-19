@@ -28,8 +28,9 @@
       9. [x] django-import-export
       10. [x] drf-yasg[validation]
       11. [x] django-imagekit
-      12. [ ] django-autoslug
-      13. [ ] drf-dynamic-fields
+      12. [x] django-autoslug
+      13. [ ] drf-writable-nested
+      14. [ ] drf-dynamic-fields
    5. Security
       1. [x] django-admin-honeypot
       2. [x] django-cors-headers

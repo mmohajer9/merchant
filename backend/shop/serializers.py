@@ -38,3 +38,25 @@ class ProductSerializer(serializers.ModelSerializer):
             "discount",
             "seller_id",
         )
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    orderitem_set = OrderItemSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = (
+            "id",
+            "status",
+            "created_at",
+            "updated_at",
+            "user_id",
+            "orderitem_set",
+        )

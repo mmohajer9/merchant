@@ -44,6 +44,16 @@ class IsSellerOwner(BasePermission):
         """
         return bool(obj.seller.user == request.user)
 
+class IsOrderOwner(BasePermission):
+
+    """After the first priority the second priority that is has_object_permission() will be executed"""
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Return `True` if permission is granted, `False` otherwise.
+        """
+        return bool(obj.order.user == request.user)
+
 class IsNotSeller(BasePermission):
 
     """First Priority : has_permission() will be executed for the first time"""
