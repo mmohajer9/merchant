@@ -113,18 +113,20 @@ export default function CartItem() {
                 Increase Quantity
                 <ExpandLessOutlinedIcon className={classes.extendedIcon} />
               </Button>
-              <Button
-                onClick={() => setQuantity((prevState) => prevState - 1)}
-                variant="contained"
-                aria-label="remove"
-                size="large"
-                className={classes.margin}
-                fullWidth
-                disabled={decreaseDisabled}
-              >
-                Decrease Quantity
-                <ExpandMoreOutlinedIcon className={classes.extendedIcon} />
-              </Button>
+              {quantity <= 1 ? null : (
+                <Button
+                  onClick={() => setQuantity((prevState) => prevState - 1)}
+                  variant="contained"
+                  aria-label="remove"
+                  size="large"
+                  className={classes.margin}
+                  fullWidth
+                  disabled={decreaseDisabled}
+                >
+                  Decrease Quantity
+                  <ExpandMoreOutlinedIcon className={classes.extendedIcon} />
+                </Button>
+              )}
               <Button
                 variant="contained"
                 color="secondary"

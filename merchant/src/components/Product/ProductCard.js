@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import { Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart';
 // import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard({ item }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item) => (event) => {
+    dispatch(cartActions.addToCart({ item }));
+  };
 
   return (
     <Card className={classes.root}>
@@ -68,7 +75,7 @@ export default function ProductCard({ item }) {
           <FavoriteIcon />
         </IconButton>
 
-        <Button size="large" variant="outlined">
+        <Button size="large" variant="outlined" onClick={handleAddToCart(item)}>
           <AddShoppingCartOutlinedIcon className={classes.cartIcon} />
           <Typography>Add To Cart</Typography>
         </Button>
