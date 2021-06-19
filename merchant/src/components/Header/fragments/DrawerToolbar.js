@@ -72,7 +72,7 @@ const DrawerToolbar = (props) => {
           <MenuOutlinedIcon />
         </IconButton>
         <Button
-          variant="contained"
+          variant="text"
           color="secondary"
           disableRipple
           component={Link}

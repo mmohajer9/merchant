@@ -1,15 +1,14 @@
 import routes from '../../common/routes';
-import axiosInstance from '../../common/axios';
 
 import { toast } from 'react-toastify';
 
-export const forgotPasswordAction = ({ values, history }) => {
+export const forgotPasswordAction = ({ values, history, auth }) => {
   return async (dispatch) => {
     const path = routes.api.resetPassword.path;
     const payload = routes.api.resetPassword.payload;
     payload.email = values.email;
     try {
-      const { data } = await axiosInstance.post(path, payload);
+      const { data } = await auth.axios.post(path, payload);
       toast.success(data.detail, {
         position: 'top-right',
         autoClose: 3000,

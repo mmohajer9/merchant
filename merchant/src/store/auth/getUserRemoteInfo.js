@@ -1,15 +1,14 @@
 // import { toast } from 'react-toastify';
 import routes from '../../common/routes';
-import axiosInstance from '../../common/axios';
 
 import { authActions } from '.';
 
-export const getUserRemoteInfo = () => {
+export const getUserRemoteInfo = ({ auth }) => {
   return async (dispatch) => {
     const path = routes.api.userDetail.path;
 
     try {
-      const { data } = await axiosInstance.get(path);
+      const { data } = await auth.axios.get(path);
       dispatch(authActions.setUserInfo({ user: data }));
     } catch (error) {}
   };

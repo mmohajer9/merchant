@@ -1,10 +1,9 @@
 import routes from '../../common/routes';
-import axiosInstance from '../../common/axios';
 
 import { authActions } from '.';
 import { toast } from 'react-toastify';
 
-export const registerAction = ({ values, history }) => {
+export const registerAction = ({ values, history , auth}) => {
   return async (dispatch) => {
     const path = routes.api.registration.path;
     const payload = routes.api.registration.payload;
@@ -14,7 +13,7 @@ export const registerAction = ({ values, history }) => {
     payload.email = values.email;
 
     try {
-      const { data } = await axiosInstance.post(path, payload);
+      const { data } = await auth.axios.post(path, payload);
       dispatch(authActions.setLoginInfo(data));
       toast.success('You have signed up Successfully', {
         position: 'top-right',
@@ -32,7 +31,7 @@ export const registerAction = ({ values, history }) => {
         pauseOnHover: true,
         draggable: true,
       });
-      setTimeout(() => history.push(routes.profile), 1000);
+      history.push(routes.profile);
     } catch (error) {
       const errorMessages = error.response.data;
       for (const field in errorMessages) {

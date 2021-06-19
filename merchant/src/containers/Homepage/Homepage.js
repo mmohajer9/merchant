@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
-import fetchProducts from '../../store/home/fetchProducts';
+import fetchProductsAction from '../../store/home/fetchProductsAction';
 
 import { Box } from '@material-ui/core';
 import Carousel from '../../components/Carousel/Carousel';
@@ -20,7 +20,7 @@ const Homepage = (props) => {
     dispatch(getUserRemoteInfo());
     dispatch(authActions.getUserLocalInfo());
 
-    dispatch(fetchProducts({}));
+    dispatch(fetchProductsAction({}));
   }, [dispatch]);
 
   return (

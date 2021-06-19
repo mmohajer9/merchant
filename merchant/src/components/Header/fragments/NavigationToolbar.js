@@ -116,7 +116,7 @@ const Navigation = (props) => {
     <>
       <Toolbar disableGutters={matches}>
         <Button
-          variant="contained"
+          variant="text"
           color="secondary"
           disableRipple
           component={Link}

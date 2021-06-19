@@ -33,6 +33,10 @@ const App = () => {
       : null;
 
   useEffect(() => {
+    dispatch(authActions.setAxiosInstance());
+  }, [auth.isAuthenticated, dispatch]);
+
+  useEffect(() => {
     dispatch(getUserRemoteInfo());
     dispatch(authActions.getUserLocalInfo());
   }, [dispatch]);

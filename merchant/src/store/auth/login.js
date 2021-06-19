@@ -1,11 +1,10 @@
 import validator from 'validator';
 import { toast } from 'react-toastify';
 import routes from '../../common/routes';
-import axiosInstance from '../../common/axios';
 
 import { authActions } from '.';
 
-export const loginAction = ({ values, history }) => {
+export const loginAction = ({ values, history, auth }) => {
   return async (dispatch) => {
     const isEmail = validator.isEmail(values.usernameOrEmail);
     const path = routes.api.login.path;
@@ -20,7 +19,7 @@ export const loginAction = ({ values, history }) => {
       payload.password = values.password;
     }
     try {
-      const { data } = await axiosInstance.post(path, payload);
+      const { data } = await auth.axios.post(path, payload);
       await dispatch(authActions.setLoginInfo(data));
       toast.success('You have logged in Successfully', {
         position: 'top-right',
@@ -30,7 +29,7 @@ export const loginAction = ({ values, history }) => {
         pauseOnHover: true,
         draggable: true,
       });
-      setTimeout(() => history.push(routes.profile), 3000);
+      history.push(routes.profile);
     } catch (error) {
       const errorMessage =
         error.response.data.non_field_errors[0] ||

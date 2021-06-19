@@ -68,7 +68,7 @@ const Authentication = (props) => {
     if (auth.isAuthenticated) {
       history.push(routes.profile);
     }
-  }, [auth, history]);
+  }, [auth.isAuthenticated, history]);
 
   const switchTo = (nextMode) => () => {
     setMode(nextMode);
