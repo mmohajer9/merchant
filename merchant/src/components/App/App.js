@@ -54,7 +54,6 @@ const App = () => {
               <Authentication />
             )}
           </Route>
-          {/* SEP */}
           <Route>
             <Header />
             <Route exact path={routes.homepage} component={Homepage} />

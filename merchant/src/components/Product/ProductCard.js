@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,21 +37,23 @@ export default function ProductCard({ item }) {
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        title={item.name}
-        titleTypographyProps={{ noWrap: true, variant: 'body1' }}
-        subheader="September 14, 2016"
-      />
-      <CardMedia
-        // component={Link}
-        // to="/profile"
-        className={classes.media}
-        image={item.image}
-        title="Paella dish"
-        classes={{
-          root: classes.cardImage,
-        }}
-      />
+      <CardActionArea>
+        <CardHeader
+          title={item.name}
+          titleTypographyProps={{ noWrap: true, variant: 'body1' }}
+          subheader="September 14, 2016"
+        />
+        <CardMedia
+          // component={Link}
+          // to="/profile"
+          className={classes.media}
+          image={item.image}
+          title="Paella dish"
+          classes={{
+            root: classes.cardImage,
+          }}
+        />
+      </CardActionArea>
       <CardContent>
         <Typography noWrap variant="body2" color="textSecondary" component="p">
           {item.description}
