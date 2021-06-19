@@ -209,7 +209,6 @@ class Product(models.Model):
         blank=True,
         null=True,
     )
-    is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(
         _("Created at"), auto_now_add=True, blank=True, null=True
     )
