@@ -13,7 +13,7 @@ const cartSlice = createSlice({
   reducers: {
     getCartItems(currentState) {
       const cart = JSON.parse(localStorage.getItem('cart'));
-      currentState.items = cart;
+      currentState.items = cart ? cart : [];
     },
     addToCart(currentState, { payload }) {
       const item = _.find(currentState.items, (o) => {

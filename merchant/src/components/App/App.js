@@ -17,6 +17,7 @@ import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
 import { authActions } from '../../store/auth';
 import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
+import { cartActions } from '../../store/cart';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
@@ -34,6 +35,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchAuthInfo = async () => {
+      await dispatch(cartActions.getCartItems());
       await dispatch(authActions.getUserTokenInfo());
       await dispatch(authActions.getUserLocalInfo());
       await dispatch(getUserRemoteInfo());
