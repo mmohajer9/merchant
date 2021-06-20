@@ -1,3 +1,4 @@
+from typing import OrderedDict
 from rest_framework.exceptions import (
     ErrorDetail,
     ValidationError as RestValidationError,
@@ -87,7 +88,7 @@ class OrderSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        products_data = validated_data.pop("products")
+        products_data = validated_data.get("products", [])
 
         try:
             (order, created) = Order.objects.get_or_create(
@@ -152,5 +153,10 @@ class OrderSerializer(serializers.ModelSerializer):
                 }
             )
 
-        [order_item.save() for order_item in order_items]
+        try:
+            [order_item.save() for order_item in order_items]
+        except:
+            pass
+
+
         return order
