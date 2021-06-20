@@ -1,32 +1,16 @@
 import React from 'react';
-import { fade, useTheme, withStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-
-import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
+import { useMediaQuery } from '@material-ui/core';
+import { fade, useTheme, makeStyles } from '@material-ui/core/styles';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-
-import MegaMenu from './MegaMenu';
-import { Box, InputBase, makeStyles, Tab, Tabs, Toolbar, useMediaQuery } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import InputBase from '@material-ui/core/InputBase';
+import Tab from '@material-ui/core/Tab';
+import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
-import routes from '../../../common/routes';
 
-const StyledMenu = withStyles({})((props) => (
-  <Menu
-    elevation={5}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
-));
+import routes from '../../../common/routes';
 
 const useStyles = makeStyles((theme) => ({
   inlineTab: {
@@ -86,20 +70,6 @@ export default function CustomizedMenus() {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [value, setValue] = React.useState(0);
-
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const searchBar = (
     <>
@@ -137,31 +107,7 @@ export default function CustomizedMenus() {
 
   const megaMenu = (
     <>
-      <Toolbar disableGutters={true}>
-        <Tabs onChange={handleChange} value={value} indicatorColor="secondary">
-          <Tab
-            disableRipple
-            className={classes.tab}
-            classes={{
-              wrapper: classes.inlineTab,
-            }}
-            icon={<MenuOutlinedIcon />}
-            onMouseOver={handleOpen}
-            label="Categories"
-          />
-        </Tabs>
-
-        {/* Categories Drop Down */}
-        <StyledMenu
-          id="categories-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MegaMenu onClose={handleClose} />
-        </StyledMenu>
-      </Toolbar>
+      <Toolbar disableGutters={true}></Toolbar>
     </>
   );
 

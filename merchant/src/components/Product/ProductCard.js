@@ -78,7 +78,7 @@ export default function ProductCard({ item }) {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <IconButton
-          size="large"
+          size="medium"
           color="secondary"
           aria-label="add to bookmarks"
         >

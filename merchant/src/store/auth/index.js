@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import getUserRemoteInfo from './getUserRemoteInfo';
 
 const initialAuthState = {
   isAuthenticated: false,
@@ -56,6 +57,11 @@ const authSlice = createSlice({
         currentState.userInfo = {};
         currentState.isAuthenticated = false;
       }
+    },
+  },
+  extraReducers: {
+    [getUserRemoteInfo.fulfilled]: (currentState, { payload }) => {
+      console.log('THIS IS THE PAYLOAD', payload);
     },
   },
 });

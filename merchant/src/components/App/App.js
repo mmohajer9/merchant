@@ -38,7 +38,7 @@ const App = () => {
       await dispatch(cartActions.getCartItems());
       await dispatch(authActions.getUserTokenInfo());
       await dispatch(authActions.getUserLocalInfo());
-      await dispatch(getUserRemoteInfo());
+      await dispatch(getUserRemoteInfo(123));
     };
 
     fetchAuthInfo();
