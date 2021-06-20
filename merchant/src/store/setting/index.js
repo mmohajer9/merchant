@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialSettingState = {
   theme: 'light',
+  screenLoading : false,
 };
 
 // we can mutate state directly in just this format not any where else!
