@@ -67,10 +67,10 @@ class OrderViewSet(EnhancedModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class OrderItemViewSet(EnhancedModelViewSet):
-    def get_queryset(self):
-        return OrderItem.objects.filter(order__user=self.request.user.id)
+# class OrderItemViewSet(EnhancedModelViewSet):
+#     def get_queryset(self):
+#         return OrderItem.objects.filter(order__user=self.request.user.id)
 
-    pagination_class = CustomLimitOffsetPagination
-    serializer_class = OrderItemSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOrderOwner]
+#     pagination_class = CustomLimitOffsetPagination
+#     serializer_class = OrderItemSerializer
+#     permission_classes = [permissions.IsAuthenticated, IsOrderOwner]
