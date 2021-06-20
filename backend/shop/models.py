@@ -337,6 +337,7 @@ class OrderItem(models.Model):
         # managed = True
         verbose_name = "Order Item"
         verbose_name_plural = "Order Items"
+        unique_together = ('order','product')
 
 
 class Bookmark(models.Model):
