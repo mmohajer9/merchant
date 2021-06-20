@@ -5,6 +5,7 @@ const routes = {
   authentication: '/auth',
   aboutus: '/aboutus',
   contactus: '/contactus',
+  checkout: '/checkout',
 
   api: {
     login: {
@@ -125,26 +126,38 @@ const routes = {
     orderCreate: {
       path: '/api/v1/shop/orders/',
       payload: {
-        status: null,
+        products: [
+          {
+            product_id: 1,
+            quantity: 3,
+          },
+          {
+            product_id: 2,
+            quantity: 4,
+          },
+          {
+            product_id: 3,
+            quantity: 5,
+          },
+        ],
       },
     },
     orderDetail: {
-      path: '/api/v1/shop/orders/{id}',
-    },
-    orderUpdate: {
-      path: '/api/v1/shop/orders/{id}',
-      payload: {
-        status: null,
-      },
-    },
-    orderDelete: {
-      path: '/api/v1/shop/orders/{id}',
+      path: '/api/v1/shop/orders/{id}/',
     },
     orderItemList: {
       path: '/api/v1/shop/order_items/',
     },
-    orderItemCreate: {
-      path: '/api/v1/shop/order_items/',
+    orderItemUpdate: {
+      path: '/api/v1/shop/order_items/{id}/',
+      payload: {
+        quantity: null,
+        price: null,
+        product: null,
+      },
+    },
+    orderItemDelete: {
+      path: '/api/v1/shop/order_items/{id}/',
       payload: {
         quantity: null,
         price: null,

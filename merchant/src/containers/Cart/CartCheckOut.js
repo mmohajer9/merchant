@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CheckOut({ items }) {
+export default function CartCheckOut({ items }) {
   const classes = useStyles();
   const { userInfo } = useSelector((state) => state.auth);
   const [totalAmount, setTotalAmount] = useState(0);

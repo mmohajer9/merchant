@@ -17,6 +17,7 @@ import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
 import { authActions } from '../../store/auth';
 import { cartActions } from '../../store/cart';
+import CheckOut from '../../containers/CheckOut/CheckOut';
 
 const App = () => {
   const setting = useSelector((state) => state.setting);
@@ -59,6 +60,7 @@ const App = () => {
             <Header />
             <Route exact path={routes.homepage} component={Homepage} />
             <Route exact path={routes.cart} component={Cart} />
+            <Route exact path={routes.checkout} component={CheckOut} />
             <Route exact path={routes.profile}>
               {auth.isAuthenticated ? (
                 <Profile />
