@@ -1,5 +1,4 @@
-from django_filters import rest_framework as filters
-
+from django_filters.rest_framework import FilterSet
 from .models import (
     Product,
 )
@@ -16,10 +15,8 @@ from .models import (
 # )
 
 
-class ProductFilter(filters.FilterSet):
+class ProductFilter(FilterSet):
     class Meta:
         model = Product
 
-        fields = [
-            "quantity",
-        ]
+        fields = {"quantity": ["lt", "gt", "exact"]}
