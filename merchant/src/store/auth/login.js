@@ -4,10 +4,11 @@ import routes from '../../common/routes';
 
 import { authActions } from '.';
 import getAxiosInstance from '../../common/axios';
-const axios = getAxiosInstance();
+
 
 export const loginAction = ({ values, history }) => {
   return async (dispatch) => {
+    const axios = getAxiosInstance();
     const isEmail = validator.isEmail(values.usernameOrEmail);
     const path = routes.api.login.path;
     const payload = routes.api.login.payload;

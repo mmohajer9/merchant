@@ -42,7 +42,7 @@ const App = () => {
     };
 
     fetchAuthInfo();
-  }, [dispatch]);
+  }, [dispatch , auth.isAuthenticated]);
 
   return (
     <ThemeProvider theme={theme}>

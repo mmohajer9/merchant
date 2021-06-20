@@ -102,24 +102,10 @@ const routes = {
       },
     },
     productDetail: {
-      path: '/api/v1/shop/products/',
-      payload: {
-        id: 5,
-        name: 'Oppo A10',
-        slug: 'oppo-a10',
-        description: null,
-        image: 'http://127.0.0.1:8000/media/products/mmohajer9/1642870-02.jpeg',
-        price: '1500.00',
-        quantity: 1,
-        created_at: '2021-06-18T17:52:35.546510Z',
-        updated_at: '2021-06-18T17:52:35.546554Z',
-        subcategory: 1,
-        discount: null,
-        seller_id: 4,
-      },
+      path: '/api/v1/shop/products/{slug}/',
     },
     productUpdate: {
-      path: '/api/v1/shop/products/',
+      path: '/api/v1/shop/products/{slug}/',
       payload: {
         name: 'Oppo A10',
         description: null,
@@ -128,6 +114,41 @@ const routes = {
         quantity: 1,
         subcategory: 1,
         discount: null,
+      },
+    },
+    productDelete: {
+      path: '/api/v1/shop/products/{slug}/',
+    },
+    orderList: {
+      path: '/api/v1/shop/orders/',
+    },
+    orderCreate: {
+      path: '/api/v1/shop/orders/',
+      payload: {
+        status: null,
+      },
+    },
+    orderDetail: {
+      path: '/api/v1/shop/orders/{id}',
+    },
+    orderUpdate: {
+      path: '/api/v1/shop/orders/{id}',
+      payload: {
+        status: null,
+      },
+    },
+    orderDelete: {
+      path: '/api/v1/shop/orders/{id}',
+    },
+    orderItemList: {
+      path: '/api/v1/shop/order_items/',
+    },
+    orderItemCreate: {
+      path: '/api/v1/shop/order_items/',
+      payload: {
+        quantity: null,
+        price: null,
+        product: null,
       },
     },
   },

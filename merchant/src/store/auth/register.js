@@ -4,10 +4,9 @@ import { authActions } from '.';
 import { toast } from 'react-toastify';
 import getAxiosInstance from '../../common/axios';
 
-const axios = getAxiosInstance();
-
 export const registerAction = ({ values, history }) => {
   return async (dispatch) => {
+    const axios = getAxiosInstance();
     const path = routes.api.registration.path;
     const payload = routes.api.registration.payload;
     payload.username = values.username;

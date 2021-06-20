@@ -1,14 +1,10 @@
 import routes from '../../common/routes';
 import { homeActions } from '.';
 import getAxiosInstance from '../../common/axios';
-const axios = getAxiosInstance();
 
-const getProducts = ({
-  limit = undefined,
-  offset = undefined,
-  history,
-}) => {
+const getProducts = ({ limit = undefined, offset = undefined, history }) => {
   return async (dispatch) => {
+    const axios = getAxiosInstance();
     const path = routes.api.productList.path;
     try {
       const { data } = await axios.get(path, {

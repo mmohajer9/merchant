@@ -2,15 +2,15 @@
 import routes from '../../common/routes';
 import { authActions } from '.';
 import getAxiosInstance from '../../common/axios';
-const axios = getAxiosInstance();
 
 export const getUserRemoteInfo = () => {
   return async (dispatch) => {
+    const axios = getAxiosInstance();
     const path = routes.api.userDetail.path;
 
     try {
       const { data } = await axios.get(path);
-      dispatch(authActions.setUserInfo({ user: data }));
+      await dispatch(authActions.setUserInfo({ user: data }));
     } catch (error) {}
   };
 };

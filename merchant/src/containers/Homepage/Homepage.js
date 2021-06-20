@@ -10,6 +10,7 @@ import ProductCard from '../../components/Product/ProductCard';
 const Homepage = (props) => {
   const dispatch = useDispatch();
   const home = useSelector((state) => state.home);
+  const { isAuthenticated , userInfo } = useSelector((state) => state.auth);
 
   const carouselItems = home.carousel.items.map((item, index) => (
     <ProductCard key={index} item={item} />
@@ -20,7 +21,7 @@ const Homepage = (props) => {
       await dispatch(getProducts({}));
     };
     fetchProducts();
-  }, [dispatch]);
+  }, [dispatch , isAuthenticated] , userInfo);
 
   return (
     <Box>
