@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import OrderItemViewSet, ProductViewSet, OrderViewSet
+from .views import CheckOut, OrderItemViewSet, ProductViewSet, OrderViewSet
 
 app_name = "shop"
 
@@ -10,4 +10,4 @@ router.register("products", ProductViewSet, basename="products")
 router.register("orders", OrderViewSet, basename="orders")
 router.register("order_items", OrderItemViewSet, basename="order_items")
 
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [path("", include(router.urls)), path("checkout/", CheckOut.as_view())]

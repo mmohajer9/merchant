@@ -56,6 +56,19 @@ class IsOrderOwner(BasePermission):
         return bool(obj.order.user == request.user)
 
 
+class HavePendingOrder(BasePermission):
+
+    """After the first priority the second priority that is has_object_permission() will be executed"""
+
+    message = {"error": "You don't have any pending orders"}
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Return `True` if permission is granted, `False` otherwise.
+        """
+        return bool(request.user.order_set.filter(status="pending").exists())
+
+
 class IsNotSeller(BasePermission):
 
     """First Priority : has_permission() will be executed for the first time"""

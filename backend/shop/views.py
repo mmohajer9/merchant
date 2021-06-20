@@ -1,6 +1,8 @@
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from shop.filters import ProductFilter
 from django.db.models.query_utils import Q
+from django.db.models import Sum, F
 from rest_framework import status, viewsets
 from rest_framework import permissions
 
@@ -8,6 +10,7 @@ from .serializers import OrderItemSerializer, OrderSerializer, ProductSerializer
 from .pagination import CustomLimitOffsetPagination
 from .generics import EnhancedModelViewSet
 from .permissions import (
+    HavePendingOrder,
     IsOrderOwner,
     IsOwner,
     IsNotSeller,
@@ -109,3 +112,48 @@ class OrderItemViewSet(EnhancedModelViewSet):
     action_permission_classes = {
         "create": [Forbidden],
     }
+
+
+class CheckOut(APIView):
+    def post(self, request, *args, **kwargs):
+        try:
+            user = request.user
+            balance = user.balance
+            order = Order.objects.filter(user=user, status="pending").latest(
+                "updated_at"
+            )
+            total_price = order.orderitem_set.annotate(
+                total_price=F("price") * F("quantity")
+            ).aggregate(Sum("total_price"))["total_price__sum"]
+
+            if balance < total_price:
+                message = {"error": "Insufficient balance, Please charge your account"}
+                return Response(message, status=status.HTTP_406_NOT_ACCEPTABLE)
+            else:
+                # modifications
+                order.status = "finished"
+                user.balance -= total_price
+                order.save()
+                user.save()
+                # returning appropriate message
+                message = {"message", "Your order is now completed and finished"}
+                return Response(message, status=status.HTTP_202_ACCEPTED)
+        except Exception as e:
+            error = {"error": "Operation was Failed"}
+            return Response(error, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            user = request.user
+            order = Order.objects.filter(user=user, status="pending").latest(
+                "updated_at"
+            )
+            order.status = "aborted"
+            order.save()
+            message = {"message": "Your order is now aborted"}
+            return Response(message, status=status.HTTP_202_ACCEPTED)
+        except Exception as e:
+            error = {"error": "Operation was Failed"}
+            return Response(error, status=status.HTTP_400_BAD_REQUEST)
+
+    permission_classes = [permissions.IsAuthenticated, HavePendingOrder]
