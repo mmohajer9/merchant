@@ -3,6 +3,7 @@ import authReducer from './auth/';
 import cartReducer from './cart/';
 import settingReducer from './setting/';
 import homeReducer from './home';
+import shop from './shop';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     cart: cartReducer,
     setting: settingReducer,
     home: homeReducer,
+    shop: shop,
   },
 });
 
