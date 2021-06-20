@@ -1,13 +1,62 @@
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { Container } from '@material-ui/core';
-
+import { Container, Typography } from '@material-ui/core';
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import CheckOut from './CheckOut';
 import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
+import _ from 'lodash';
+import { Card } from '@material-ui/core';
+import { CardContent } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  noPurchaseIcon: {
+    fontSize: theme.typography.fontSize * 7.25,
+  },
+}));
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
+  const isEmpty = _.isEmpty(cart.items);
+  const classes = useStyles();
+
+  if (isEmpty) {
+    return (
+      <Box mt={4} mb={8}>
+        <Container maxWidth="lg">
+          <Card elevation={10}>
+            <CardContent>
+              <Grid container direction="column" alignItems="center">
+                <Grid item className={classes.noPurchaseIcon}>
+                  <ErrorOutlineOutlinedIcon fontSize="inherit" />
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h5"
+                    align="center"
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    You Have No Items In Your Cart
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    align="center"
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    You can add some products to your shopping cart, then you
+                    can checkout the items and go for purchase
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
     <Box mt={4} mb={8}>

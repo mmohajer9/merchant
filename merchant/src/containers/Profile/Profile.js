@@ -78,7 +78,6 @@ const Profile = (props) => {
     if (!auth.isAuthenticated) {
       history.push(routes.authentication);
     }
-
   }, [history, dispatch, auth.isAuthenticated]);
 
   return (
@@ -310,7 +309,6 @@ const Profile = (props) => {
                   <Typography color="textPrimary" gutterBottom>
                     Latest Purchases
                   </Typography>
-                  {/* <Grid container></Grid> */}
                   <Grid container direction="column" alignItems="center">
                     <Grid item className={classes.noPurchaseIcon}>
                       <ErrorOutlineOutlinedIcon fontSize="inherit" />
