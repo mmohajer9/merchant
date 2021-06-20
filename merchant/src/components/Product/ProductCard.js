@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -24,8 +24,13 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   media: {
-    height: 0,
-    paddingTop: '100%', // 16:9
+    // height: '50%',
+    // paddingTop: '100%', // 16:9
+    display: 'block',
+    maxWidth: '70%',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
   },
   cartIcon: {
     marginRight: '.3em',
@@ -33,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   cardActions: {
     alignItems: 'stretch',
     justifyContent: 'space-around',
+  },
+  cardActionArea: {
+    display: 'flex',
   },
 }));
 
@@ -46,13 +54,14 @@ export default function ProductCard({ item }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardHeader
-          title={item.name}
-          titleTypographyProps={{ noWrap: true, variant: 'body1' }}
-          subheader={<Moment format="YYYY/MM/DD" data={item.updated_at} />}
-        />
-        <CardMedia
+      <CardHeader
+        title={item.name}
+        titleTypographyProps={{ noWrap: true, variant: 'body1' }}
+        subheader={<Moment format="YYYY/MM/DD" data={item.updated_at} />}
+      />
+      <CardActionArea className={classes.cardActionArea}>
+        <img className={classes.media} src={item.image} alt={item.name}></img>
+        {/* <CardMedia
           // component={Link}
           // to="/profile"
           className={classes.media}
@@ -60,7 +69,7 @@ export default function ProductCard({ item }) {
           classes={{
             root: classes.cardImage,
           }}
-        />
+        /> */}
       </CardActionArea>
       <CardContent>
         <Typography noWrap variant="body2" color="textSecondary" component="p">

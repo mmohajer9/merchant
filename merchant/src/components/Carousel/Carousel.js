@@ -16,7 +16,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const useStyles = makeStyles((theme) => ({
   swiperRoot: {
-    maxHeight : '100%'
+    maxHeight: '100%',
   },
 }));
 
@@ -41,11 +41,17 @@ const Carousel = ({ items = [] }) => {
               },
               // when window width is >= 480px
               480: {
+                slidesPerView: 2,
+              },
+              640: {
                 slidesPerView: 3,
               },
               // when window width is >= 960
               960: {
                 slidesPerView: 4,
+              },
+              1080: {
+                slidesPerView: 5,
               },
             }}
             pagination={{ clickable: true }}
