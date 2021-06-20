@@ -2,7 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Container, Typography } from '@material-ui/core';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
-import CheckOut from './CheckOut';
+import CartCheckOut from './CartCheckOut';
 import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
@@ -76,7 +76,7 @@ export default function Cart() {
             ))}
           </Grid>
           <Grid item xs={12} md={4}>
-            <CheckOut items={cart.items} />
+            <CartCheckOut items={cart.items} />
           </Grid>
         </Grid>
       </Container>
