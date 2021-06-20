@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { green } from '@material-ui/core/colors';
 import { Box } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function CheckOut({ items }) {
   const classes = useStyles();
+  const { userInfo } = useSelector((state) => state.auth);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
@@ -101,8 +103,9 @@ export default function CheckOut({ items }) {
           fullWidth
           size="large"
           color="secondary"
+          disabled={userInfo.balance < totalAmount}
         >
-          Check Out
+          {userInfo.balance < totalAmount ? 'Not Enough Balance' : 'Check Out'}
         </Button>
       </CardActions>
     </Card>
