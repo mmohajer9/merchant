@@ -100,6 +100,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "orderitem_set",
             "products",
         )
+        read_only_fields = ["status"]
 
     def create(self, validated_data):
         products_data = validated_data.get("products", [])
