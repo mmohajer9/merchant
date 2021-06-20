@@ -1,6 +1,7 @@
+from rest_framework.response import Response
 from shop.filters import ProductFilter
 from django.db.models.query_utils import Q
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework import permissions
 
 from .serializers import OrderItemSerializer, OrderSerializer, ProductSerializer
@@ -62,6 +63,20 @@ class OrderViewSet(EnhancedModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    # override per action
+    action_permission_classes = {
+        "destroy": [Forbidden],
+    }
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
