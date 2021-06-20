@@ -84,12 +84,12 @@ export default function CheckOut({ items }) {
               </Grid>
               <Grid item xs={2}>
                 <Typography variant="h6" color="textSecondary" gutterBottom>
-                  {+item.properties.price * +item.count}
+                  {+item.properties.price * +item.count} $
                 </Typography>
               </Grid>
               <Grid item xs={2}>
                 <Typography variant="h6" color="textSecondary" gutterBottom>
-                  {+item.properties.final_price * +item.count}
+                  {+item.properties.final_price * +item.count} $
                 </Typography>
               </Grid>
             </Grid>

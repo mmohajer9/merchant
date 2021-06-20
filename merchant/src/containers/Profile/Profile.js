@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
   noPurchaseIcon: {
     fontSize: theme.typography.fontSize * 7.25,
   },
+  editButton: {
+    padding: theme.spacing(2),
+  },
 }));
 
 const Profile = (props) => {
@@ -79,6 +82,10 @@ const Profile = (props) => {
       history.push(routes.authentication);
     }
   }, [history, dispatch, auth.isAuthenticated]);
+
+  useEffect(() => {
+    dispatch(authActions.getUserRemoteInfo());
+  }, [dispatch]);
 
   return (
     <Box mt={3} mb={5}>
@@ -204,6 +211,23 @@ const Profile = (props) => {
                     Personal Information
                   </Typography>
                   <Grid container direction="row">
+                    {auth.userInfo.profile_pic ? (
+                      <Grid item className={classes.personalInfoItem} xs={12}>
+                        <Typography
+                          color="textSecondary"
+                          variant="subtitle1"
+                          gutterBottom
+                        >
+                          Profile Image
+                        </Typography>
+                        <img
+                          width={200}
+                          src={auth.userInfo.profile_pic}
+                          alt={auth.userInfo.username}
+                        />
+                      </Grid>
+                    ) : null}
+
                     <Grid item className={classes.personalInfoItem} xs={6}>
                       <Typography
                         color="textSecondary"
@@ -297,8 +321,11 @@ const Profile = (props) => {
                     variant="contained"
                     color="secondary"
                     size="large"
+                    className={classes.editButton}
                   >
-                    Edit Personal Information
+                    <Typography variant="h5">
+                      Edit Personal Information
+                    </Typography>
                   </Button>
                 </CardActions>
               </Card>
