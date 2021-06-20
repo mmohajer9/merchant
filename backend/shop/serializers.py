@@ -60,6 +60,20 @@ class OrderItemSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+    def update(self, instance, validated_data):
+        product_quantity = instance.product.quantity
+        quantity = validated_data.pop("quantity")
+        if quantity > product_quantity:
+            raise RestValidationError(
+                {
+                    "error": {
+                        "product_id": instance.product.id,
+                        "message": "not sufficient product in the stock",
+                    }
+                }
+            )
+        return super().update(instance, validated_data)
+
 
 class OrderProductSerializer(serializers.ModelSerializer):
 
