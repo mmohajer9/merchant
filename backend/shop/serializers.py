@@ -46,7 +46,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["id", "order", "created_at", "updated_at"]
 
-# TODO ino fixesh kon vase farda
+
 class OrderSerializer(serializers.ModelSerializer):
 
     orderitem_set = OrderItemSerializer(many=True)

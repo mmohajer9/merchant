@@ -1,3 +1,4 @@
+from shop.filters import ProductFilter
 from django.db.models.query_utils import Q
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -28,7 +29,7 @@ class ProductViewSet(EnhancedModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    # filterset_class = ProductFilter
+    filterset_class = ProductFilter
     # search_fields = ["title", "business_phone", "description", "user__username"]
     ordering_fields = "__all__"
     ordering = ["-updated_at"]

@@ -1,8 +1,8 @@
 from django_filters import rest_framework as filters
 
-# from .models import (
-#     Seller,
-# )
+from .models import (
+    Product,
+)
 
 # from django.db.models import (
 #     # functions,
@@ -16,8 +16,10 @@ from django_filters import rest_framework as filters
 # )
 
 
-# class SellerFilter(filters.FilterSet):
-#     class Meta:
-#         model = Seller
+class ProductFilter(filters.FilterSet):
+    class Meta:
+        model = Product
 
-#         fields = "__all__"
+        fields = [
+            "quantity",
+        ]
