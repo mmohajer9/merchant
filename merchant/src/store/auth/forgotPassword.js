@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import getAxiosInstance from '../../common/axios';
 
 
-export const forgotPasswordAction = ({ values, history }) => {
+export const forgotPassword = ({ values, history }) => {
   return async (dispatch) => {
     const axios = getAxiosInstance();
     const path = routes.api.resetPassword.path;
@@ -35,4 +35,4 @@ export const forgotPasswordAction = ({ values, history }) => {
   };
 };
 
-export default forgotPasswordAction;
+export default forgotPassword;

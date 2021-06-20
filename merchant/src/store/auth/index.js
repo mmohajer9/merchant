@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import forgotPassword from './forgotPassword';
 import getUserRemoteInfo from './getUserRemoteInfo';
+import login from './login';
+import register from './register';
 
 const initialAuthState = {
   isAuthenticated: false,
@@ -59,12 +62,12 @@ const authSlice = createSlice({
       }
     },
   },
-  extraReducers: {
-    [getUserRemoteInfo.fulfilled]: (currentState, { payload }) => {
-      console.log('THIS IS THE PAYLOAD', payload);
-    },
-  },
 });
+
+authSlice.actions.getUserRemoteInfo = getUserRemoteInfo;
+authSlice.actions.forgotPassword = forgotPassword;
+authSlice.actions.login = login;
+authSlice.actions.register = register;
 
 export const authActions = authSlice.actions;
 

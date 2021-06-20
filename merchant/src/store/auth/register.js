@@ -4,7 +4,7 @@ import { authActions } from '.';
 import { toast } from 'react-toastify';
 import getAxiosInstance from '../../common/axios';
 
-export const registerAction = ({ values, history }) => {
+export const register = ({ values, history }) => {
   return async (dispatch) => {
     const axios = getAxiosInstance();
     const path = routes.api.registration.path;
@@ -52,4 +52,4 @@ export const registerAction = ({ values, history }) => {
   };
 };
 
-export default registerAction;
+export default register;

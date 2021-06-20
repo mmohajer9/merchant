@@ -6,7 +6,7 @@ import { authActions } from '.';
 import getAxiosInstance from '../../common/axios';
 
 
-export const loginAction = ({ values, history }) => {
+export const login = ({ values, history }) => {
   return async (dispatch) => {
     const axios = getAxiosInstance();
     const isEmail = validator.isEmail(values.usernameOrEmail);
@@ -50,4 +50,4 @@ export const loginAction = ({ values, history }) => {
   };
 };
 
-export default loginAction;
+export default login;

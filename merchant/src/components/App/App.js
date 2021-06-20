@@ -16,7 +16,6 @@ import Footer from '../Footer/Footer';
 import Authentication from '../../containers/Authentication/Authentication';
 import { lightTheme, darkTheme, defaultTheme } from '../UI/Theme';
 import { authActions } from '../../store/auth';
-import getUserRemoteInfo from '../../store/auth/getUserRemoteInfo';
 import { cartActions } from '../../store/cart';
 
 const App = () => {
@@ -38,11 +37,11 @@ const App = () => {
       await dispatch(cartActions.getCartItems());
       await dispatch(authActions.getUserTokenInfo());
       await dispatch(authActions.getUserLocalInfo());
-      await dispatch(getUserRemoteInfo(123));
+      await dispatch(authActions.getUserRemoteInfo());
     };
 
     fetchAuthInfo();
-  }, [dispatch , auth.isAuthenticated]);
+  }, [dispatch, auth.isAuthenticated]);
 
   return (
     <ThemeProvider theme={theme}>

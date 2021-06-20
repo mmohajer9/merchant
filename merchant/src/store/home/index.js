@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import getProducts from './getProducts';
 
 const initialHomeState = {
   carousel: {
@@ -28,6 +29,8 @@ const homeSlice = createSlice({
     },
   },
 });
+
+homeSlice.actions.getProducts = getProducts;
 
 export const homeActions = homeSlice.actions;
 

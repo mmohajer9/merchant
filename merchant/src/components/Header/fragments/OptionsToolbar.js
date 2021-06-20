@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
 
 import routes from '../../../common/routes';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   inlineTab: {
@@ -70,6 +71,7 @@ export default function CustomizedMenus() {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const auth = useSelector((state) => state.auth);
 
   const searchBar = (
     <>
@@ -91,7 +93,7 @@ export default function CustomizedMenus() {
           disableRipple
           className={classes.tab}
           component={Link}
-          to={routes.authentication}
+          to={auth.isAuthenticated ? routes.profile : routes.authentication}
           icon={<PersonOutlineOutlinedIcon />}
         />
         <Tab

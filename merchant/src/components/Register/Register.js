@@ -13,7 +13,7 @@ import {
 
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import registerAction from '../../store/auth/register';
+import { authActions } from '../../store/auth';
 
 const useStyles = makeStyles((theme) => ({
   cardContentRoot: {
@@ -59,7 +59,7 @@ const Register = (props) => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      await dispatch(registerAction({ values, history }));
+      await dispatch(authActions.register({ values, history }));
     },
   });
 
