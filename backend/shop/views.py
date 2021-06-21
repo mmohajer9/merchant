@@ -1,3 +1,4 @@
+from django.db.models.expressions import OuterRef, Subquery
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from shop.filters import ProductFilter
@@ -132,9 +133,22 @@ class CheckOut(APIView):
             else:
                 # modifications
                 order.status = "finished"
+
+                # updating products
+                order_items = order.orderitem_set
+                products = Product.objects.filter(orderitem__order=order)
+                products.update(
+                    quantity=F("quantity")
+                    - Subquery(
+                        order_items.filter(product__id=OuterRef("id")).values(
+                            "quantity"
+                        )[:1]
+                    )
+                )
                 user.balance -= total_price
                 order.save()
                 user.save()
+
                 # returning appropriate message
                 message = {"message", "Your order is now completed and finished"}
                 return Response(message, status=status.HTTP_202_ACCEPTED)
